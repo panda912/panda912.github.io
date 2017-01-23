@@ -1,0 +1,629 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="自定义 View," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="#实现方式1.在顶部放一个与scrollview中相同布局的浮动view，控制显示/隐藏；
+2.view.setTranslationY(translationY)；
+如果这个浮动的view有多种状态（类似tab切换这种），那么方式1就比较麻烦，要同步状态，所以本文是用方式2实现的。
+#代码分析自定义属性，可以对照下图理解：
+123456789101112&amp;lt;declare-styleab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿同程旅游app产品详情页，实现scrollview中tab顶部悬停效果">
+<meta property="og:url" content="http://yoursite.com/2016/10/14/仿同程旅游app产品详情页，实现scrollview中tab顶部悬停效果/index.html">
+<meta property="og:site_name" content="远方的海">
+<meta property="og:description" content="#实现方式1.在顶部放一个与scrollview中相同布局的浮动view，控制显示/隐藏；
+2.view.setTranslationY(translationY)；
+如果这个浮动的view有多种状态（类似tab切换这种），那么方式1就比较麻烦，要同步状态，所以本文是用方式2实现的。
+#代码分析自定义属性，可以对照下图理解：
+123456789101112&amp;lt;declare-styleab">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/ad5b14bfgw1f8sau1ey22g20a00dc1l4.gif">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/ad5b14bfgw1f8rwb9anocg206o0a0npe.gif">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/ad5b14bfgw1f8v0v232o4j20850g1glp.jpg">
+<meta property="og:updated_time" content="2017-01-20T08:01:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="仿同程旅游app产品详情页，实现scrollview中tab顶部悬停效果">
+<meta name="twitter:description" content="#实现方式1.在顶部放一个与scrollview中相同布局的浮动view，控制显示/隐藏；
+2.view.setTranslationY(translationY)；
+如果这个浮动的view有多种状态（类似tab切换这种），那么方式1就比较麻烦，要同步状态，所以本文是用方式2实现的。
+#代码分析自定义属性，可以对照下图理解：
+123456789101112&amp;lt;declare-styleab">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/ad5b14bfgw1f8sau1ey22g20a00dc1l4.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 仿同程旅游app产品详情页，实现scrollview中tab顶部悬停效果 | 远方的海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">远方的海</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                仿同程旅游app产品详情页，实现scrollview中tab顶部悬停效果
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-14T16:06:49+08:00" content="2016-10-14">
+              2016-10-14
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <table><tr><br><br><td><br><br><div align="center"><br><br><img src="https://ws3.sinaimg.cn/large/ad5b14bfgw1f8sau1ey22g20a00dc1l4.gif" alt="pic1"><br><br></div><br><br></td><br><td><br><br><div align="center"><br><br><img src="https://ws2.sinaimg.cn/large/ad5b14bfgw1f8rwb9anocg206o0a0npe.gif" alt="pic2"><br><br></div><br><br></td><br></tr></table>
+
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="#实现方式"></a>#实现方式</h3><p>1.在顶部放一个与scrollview中相同布局的浮动view，控制显示/隐藏；</p>
+<p>2.view.setTranslationY(translationY)；</p>
+<p>如果这个浮动的view有多种状态（类似tab切换这种），那么方式1就比较麻烦，要同步状态，所以本文是用方式2实现的。</p>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="#代码分析"></a>#代码分析</h3><p>自定义属性，可以对照下图理解：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"FloatTabScrollView"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"top_layout"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"page1_layout"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"page2_layout"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"page3_layout"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"bottom_layout"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"tab1_title"</span> <span class="attr">format</span>=<span class="string">"string"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"tab2_title"</span> <span class="attr">format</span>=<span class="string">"string"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"tab3_title"</span> <span class="attr">format</span>=<span class="string">"string"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"selected_tab_color"</span> <span class="attr">format</span>=<span class="string">"color"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"unselected_tab_color"</span> <span class="attr">format</span>=<span class="string">"color"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></div></pre></td></tr></table></figure>
+<div align="center"><br><br><img src="https://ws2.sinaimg.cn/large/ad5b14bfgw1f8v0v232o4j20850g1glp.jpg" alt="pic3"><br><br></div>
+
+<p>在自定义的<code>FloatTabScrollView</code>的构造方法中<code>inflate</code>一个布局文件和获取自定义属性:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">FloatTabScrollView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">    mContext = context;</div><div class="line">    inflate(context, R.layout.layout_float_tab_scrollview, <span class="keyword">this</span>);</div><div class="line"></div><div class="line">    TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FloatTabScrollView, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">    <span class="keyword">if</span> (ta != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_tab1_title)) &#123;</div><div class="line">            mTabTitle1 = ta.getString(R.styleable.FloatTabScrollView_tab1_title);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_tab2_title)) &#123;</div><div class="line">            mTabTitle2 = ta.getString(R.styleable.FloatTabScrollView_tab2_title);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_tab3_title)) &#123;</div><div class="line">            mTabTitle3 = ta.getString(R.styleable.FloatTabScrollView_tab3_title);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_top_layout)) &#123;</div><div class="line">            mTopLayoutId = ta.getResourceId(R.styleable.FloatTabScrollView_top_layout, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_page1_layout)) &#123;</div><div class="line">            mPage1LayoutId = ta.getResourceId(R.styleable.FloatTabScrollView_page1_layout, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_page2_layout)) &#123;</div><div class="line">            mPage2LayoutId = ta.getResourceId(R.styleable.FloatTabScrollView_page2_layout, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_page3_layout)) &#123;</div><div class="line">            mPage3LayoutId = ta.getResourceId(R.styleable.FloatTabScrollView_page3_layout, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_bottom_layout)) &#123;</div><div class="line">            mBottomLayoutId = ta.getResourceId(R.styleable.FloatTabScrollView_bottom_layout, <span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (ta.hasValue(R.styleable.FloatTabScrollView_tabline_color)) &#123;</div><div class="line">            tabLineColor = ta.getColor(R.styleable.FloatTabScrollView_tabline_color, <span class="number">0xFFFF4081</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ta.recycle();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">android.support.v4.widget.NestedScrollView</span></span></div><div class="line">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></div><div class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/nestedscrollview"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:overScrollMode</span>=<span class="string">"never"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">            <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">                <span class="attr">android:id</span>=<span class="string">"@+id/fl_top"</span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="comment">&lt;!--给tab占位的view--&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">View</span></span></div><div class="line">                <span class="attr">android:id</span>=<span class="string">"@+id/view_tab_holder"</span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"45dp"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">                <span class="attr">android:id</span>=<span class="string">"@+id/fl_page1"</span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">                <span class="attr">android:id</span>=<span class="string">"@+id/fl_page2"</span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">                <span class="attr">android:id</span>=<span class="string">"@+id/fl_page3"</span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">FrameLayout</span></span></div><div class="line">                <span class="attr">android:id</span>=<span class="string">"@+id/fl_bottom"</span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="comment">&lt;!--tab--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">            <span class="attr">android:id</span>=<span class="string">"@+id/ll_tab"</span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:background</span>=<span class="string">"@android:color/white"</span></div><div class="line">            <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"43dp"</span></div><div class="line">                <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span>&gt;</div><div class="line"></div><div class="line">                <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                    <span class="attr">android:id</span>=<span class="string">"@+id/tv_tab1"</span></div><div class="line">                    <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></div><div class="line">                    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">                    <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></div><div class="line">                    <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">                    <span class="attr">tools:text</span>=<span class="string">"商品详情"</span> /&gt;</div><div class="line"></div><div class="line">                <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                    <span class="attr">android:id</span>=<span class="string">"@+id/tv_tab2"</span></div><div class="line">                    <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></div><div class="line">                    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">                    <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></div><div class="line">                    <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">                    <span class="attr">tools:text</span>=<span class="string">"商品参数"</span> /&gt;</div><div class="line"></div><div class="line">                <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                    <span class="attr">android:id</span>=<span class="string">"@+id/tv_tab3"</span></div><div class="line">                    <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></div><div class="line">                    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">                    <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></div><div class="line">                    <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">                    <span class="attr">tools:text</span>=<span class="string">"商品推荐"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">View</span></span></div><div class="line">                <span class="attr">android:id</span>=<span class="string">"@+id/view_tab_line"</span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"120dp"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"2dp"</span></div><div class="line">                <span class="attr">android:background</span>=<span class="string">"#FFFF4081"</span> /&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.v4.widget.NestedScrollView</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>ScrollView</code>下的子布局必须是<code>FrameLayout</code>或者<code>RelativeLayout</code>，在<code>tab</code>的位置放一个占位的<code>View</code>，如果占位view没有到达顶部，则让tab一直显示在占位view的位置，如果占位view到达了顶部，则让tab“固定”在顶部，为什么“固定”要加引号，其实并不是固定，tab一直在<code>ScrollView</code>中滚动，只是相对静止而已。</p>
+<p>然后在onFinishInflate中加载每一块区域的布局文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onFinishInflate</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onFinishInflate();</div><div class="line"></div><div class="line">    mTopContainerFL = (FrameLayout) findViewById(R.id.fl_top);</div><div class="line">    mPage1ContainerFL = (FrameLayout) findViewById(R.id.fl_page1);</div><div class="line">    mPage2ContainerFL = (FrameLayout) findViewById(R.id.fl_page2);</div><div class="line">    mPage3ContainerFL = (FrameLayout) findViewById(R.id.fl_page3);</div><div class="line">    mBottomContainerFL = (FrameLayout) findViewById(R.id.fl_bottom);</div><div class="line"></div><div class="line">    inflate(mContext, mTopLayoutId, mTopContainerFL);</div><div class="line">    inflate(mContext, mPage1LayoutId, mPage1ContainerFL);</div><div class="line">    inflate(mContext, mPage2LayoutId, mPage2ContainerFL);</div><div class="line">    inflate(mContext, mPage3LayoutId, mPage3ContainerFL);</div><div class="line">    inflate(mContext, mBottomLayoutId, mBottomContainerFL);</div><div class="line"></div><div class="line">    mTabHolderView = findViewById(R.id.view_tab_holder);</div><div class="line">    mTabLL = (LinearLayout) findViewById(R.id.ll_tab);</div><div class="line">    mTabLine = findViewById(R.id.view_tab_line);</div><div class="line">    mTabLine.setBackgroundColor(tabLineColor);</div><div class="line"></div><div class="line">    mTabTV1 = (TextView) findViewById(R.id.tv_tab1);</div><div class="line">    mTabTV2 = (TextView) findViewById(R.id.tv_tab2);</div><div class="line">    mTabTV3 = (TextView) findViewById(R.id.tv_tab3);</div><div class="line">    mTabTV1.setText(mTabTitle1);</div><div class="line">    mTabTV2.setText(mTabTitle2);</div><div class="line">    mTabTV3.setText(mTabTitle3);</div><div class="line"></div><div class="line">    mTabTV1.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">    mTabTV2.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">    mTabTV3.setOnClickListener(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">    getViewTreeObserver().addOnGlobalLayoutListener(<span class="keyword">new</span> ViewTreeObserver.OnGlobalLayoutListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onGlobalLayout</span><span class="params">()</span> </span>&#123;</div><div class="line">            setTabViewPosition(<span class="number">0</span>);</div><div class="line">            <span class="keyword">if</span> (bGradient) &#123;</div><div class="line">                mToolbar.getBackground().setAlpha(MIN_ALPHA);</div><div class="line">            &#125;</div><div class="line">            getViewTreeObserver().removeGlobalOnLayoutListener(<span class="keyword">this</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>覆写<code>onScrollChanged</code>方法来平移tab的位置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onScrollChanged</span><span class="params">(<span class="keyword">int</span> scrollX, <span class="keyword">int</span> scrollY, <span class="keyword">int</span> oldScrollX, <span class="keyword">int</span> oldScrollY)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onScrollChanged(scrollX, scrollY, oldScrollX, oldScrollY);</div><div class="line"></div><div class="line">    setTabViewPosition(scrollY);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (bGradient) &#123;</div><div class="line">        <span class="keyword">float</span> alpha = scrollY / (<span class="keyword">float</span>) (mTabHolderView.getTop() - mToolbar.getHeight()) * MAX_ALPHA;</div><div class="line">        mToolbar.getBackground().setAlpha(Math.min((<span class="keyword">int</span>) alpha, MAX_ALPHA));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setTabViewPosition</span><span class="params">(<span class="keyword">int</span> scrollY)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (scrollY &lt;= mPage3ContainerFL.getTop() + mPage3ContainerFL.getHeight() - mTabLL.getHeight()) &#123;</div><div class="line">        <span class="comment">//设置tabview在scrollview中的位置</span></div><div class="line">        mTabLL.setTranslationY(Math.max(scrollY + (mToolbar != <span class="keyword">null</span> ? mToolbar.getHeight() : <span class="number">0</span>), mTabHolderView.getTop()));</div><div class="line"></div><div class="line">        <span class="comment">//滚动过程中切换tab的选中状态</span></div><div class="line">        <span class="keyword">if</span> (scrollY &lt; mPage2ContainerFL.getTop() - mTabLL.getHeight() - (mToolbar != <span class="keyword">null</span> ? mToolbar.getHeight() : <span class="number">0</span>)) &#123;</div><div class="line">            selectTab(<span class="number">0</span>);</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (scrollY &gt;= mPage2ContainerFL.getTop() - mTabLL.getHeight() - (mToolbar != <span class="keyword">null</span> ? mToolbar.getHeight() : <span class="number">0</span>)</div><div class="line">                &amp;&amp; scrollY &lt; mPage3ContainerFL.getTop() - mTabLL.getHeight() - (mToolbar != <span class="keyword">null</span> ? mToolbar.getHeight() : <span class="number">0</span>)) &#123;</div><div class="line">            selectTab(<span class="number">1</span>);</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (scrollY &gt;= mPage3ContainerFL.getTop() - mTabLL.getHeight() - (mToolbar != <span class="keyword">null</span> ? mToolbar.getHeight() : <span class="number">0</span>)) &#123;</div><div class="line">            selectTab(<span class="number">2</span>);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//超过最大高度之后,把tabview设置在原始位置,,,,,,也可以不设置</span></div><div class="line">        mTabLL.setTranslationY(mTabHolderView.getTop());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">selectTab</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (mTabLineAnimator == <span class="keyword">null</span>) &#123;</div><div class="line">        mTabLineAnimator = <span class="keyword">new</span> ValueAnimator();</div><div class="line">        mTabLineAnimator.setDuration(DEFAULT_DURATION);</div><div class="line">        mTabLineAnimator.setInterpolator(<span class="keyword">new</span> FastOutSlowInInterpolator());</div><div class="line">        mTabLineAnimator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</div><div class="line">                mTabLine.setTranslationX((<span class="keyword">int</span>) animation.getAnimatedValue());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> curTabLineX = (<span class="keyword">int</span>) mTabLine.getX();</div><div class="line">    <span class="keyword">int</span> needTabLineX = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">switch</span> (index) &#123;</div><div class="line">        <span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">            needTabLineX = <span class="number">0</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">            needTabLineX = mTabLL.getWidth() / <span class="number">3</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">            needTabLineX = mTabLL.getWidth() / <span class="number">3</span> * <span class="number">2</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (curTabLineX == needTabLineX) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    mTabLineAnimator.setIntValues(curTabLineX, needTabLineX);</div><div class="line">    <span class="keyword">if</span> (!mTabLineAnimator.isRunning()) &#123;</div><div class="line">        mTabLineAnimator.start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="项目地址"><a href="#项目地址" class="headerlink" title="#项目地址"></a>#项目地址</h3><p><a href="https://github.com/panda912/FloatTabScrollView" target="_blank" rel="external">https://github.com/panda912/FloatTabScrollView</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/自定义-View/" rel="tag">#自定义 View</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/20/gradle使用exclude移除重复依赖/" rel="next" title="gradle使用exclude移除重复依赖">
+                <i class="fa fa-chevron-left"></i> gradle使用exclude移除重复依赖
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/18/SurfaceView基本用法/" rel="prev" title="SurfaceView基本用法">
+                SurfaceView基本用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="panda" />
+          <p class="site-author-name" itemprop="name">panda</p>
+          <p class="site-description motion-element" itemprop="description">这个帅哥很懒，只留下这段话。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/panda912" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/yuafangdehai" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现方式"><span class="nav-number">1.</span> <span class="nav-text">#实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码分析"><span class="nav-number">2.</span> <span class="nav-text">#代码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目地址"><span class="nav-number">3.</span> <span class="nav-text">#项目地址</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">panda</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

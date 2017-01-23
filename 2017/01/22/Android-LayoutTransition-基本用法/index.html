@@ -1,0 +1,602 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="简介LayoutTransition是在 API11 的时候引入的，用来设置当布局发生变化时的动画效果。有时候当我们addView、removeView 或者设置 View 的 GONE、VISIBLE 时，不想让布局的变化显得很突兀，想有一个过渡的效果，就在xml布局文件中设置android:animateLayoutChanges=&amp;quot;true&amp;quot;属性，这个属性就是用到了Lay">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android LayoutTransition 基本用法">
+<meta property="og:url" content="http://yoursite.com/2017/01/22/Android-LayoutTransition-基本用法/index.html">
+<meta property="og:site_name" content="远方的海">
+<meta property="og:description" content="简介LayoutTransition是在 API11 的时候引入的，用来设置当布局发生变化时的动画效果。有时候当我们addView、removeView 或者设置 View 的 GONE、VISIBLE 时，不想让布局的变化显得很突兀，想有一个过渡的效果，就在xml布局文件中设置android:animateLayoutChanges=&amp;quot;true&amp;quot;属性，这个属性就是用到了Lay">
+<meta property="og:image" content="http://yoursite.com/screen.gif">
+<meta property="og:updated_time" content="2017-01-23T08:17:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android LayoutTransition 基本用法">
+<meta name="twitter:description" content="简介LayoutTransition是在 API11 的时候引入的，用来设置当布局发生变化时的动画效果。有时候当我们addView、removeView 或者设置 View 的 GONE、VISIBLE 时，不想让布局的变化显得很突兀，想有一个过渡的效果，就在xml布局文件中设置android:animateLayoutChanges=&amp;quot;true&amp;quot;属性，这个属性就是用到了Lay">
+<meta name="twitter:image" content="http://yoursite.com/screen.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Android LayoutTransition 基本用法 | 远方的海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">远方的海</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android LayoutTransition 基本用法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-22T15:54:39+08:00" content="2017-01-22">
+              2017-01-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>LayoutTransition</code>是在 API11 的时候引入的，用来设置当布局发生变化时的动画效果。有时候当我们addView、removeView 或者设置 View 的 GONE、VISIBLE 时，不想让布局的变化显得很突兀，想有一个过渡的效果，就在xml布局文件中设置<code>android:animateLayoutChanges=&quot;true&quot;</code>属性，这个属性就是用到了<code>LayoutTransition</code>。我们来看看官方提供的默认的动画是什么样子的：</p>
+<p>先从<code>ViewGroup</code>的构造方法中看起:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ViewGroup</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr, <span class="keyword">int</span> defStyleRes)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>(context, attrs, defStyleAttr, defStyleRes);</div><div class="line">    initViewGroup();</div><div class="line">    initFromAttributes(context, attrs, defStyleAttr, defStyleRes);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>点进去<code>initFromAttributes</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initFromAttributes</span><span class="params">(</span></span></div><div class="line">        Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr, <span class="keyword">int</span> defStyleRes) &#123;</div><div class="line">    <span class="keyword">final</span> TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ViewGroup, defStyleAttr,</div><div class="line">            defStyleRes);</div><div class="line"></div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> N = a.getIndexCount();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">        <span class="keyword">int</span> attr = a.getIndex(i);</div><div class="line">        <span class="keyword">switch</span> (attr) &#123;</div><div class="line">            <span class="keyword">case</span> ......</div><div class="line">            <span class="keyword">case</span> ......</div><div class="line">            <span class="keyword">case</span> R.styleable.ViewGroup_animateLayoutChanges:</div><div class="line">                <span class="keyword">boolean</span> animateLayoutChanges = a.getBoolean(attr, <span class="keyword">false</span>);</div><div class="line">                <span class="keyword">if</span> (animateLayoutChanges) &#123;</div><div class="line">                    setLayoutTransition(<span class="keyword">new</span> LayoutTransition());</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> ......</div><div class="line">            <span class="keyword">case</span> ......</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    a.recycle();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到当我们设置<code>android:animateLayoutChanges=&quot;true&quot;</code>的时候，其实就是调用了<code>setLayoutTransition(new LayoutTransition());</code>设置默认的动画效果。我们今天主要来看看<code>LayoutTransition</code>这个类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">LayoutTransition</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (defaultChangeIn == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="comment">// "left" is just a placeholder; we'll put real properties/values in when needed</span></div><div class="line">        PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt(<span class="string">"left"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">        PropertyValuesHolder pvhTop = PropertyValuesHolder.ofInt(<span class="string">"top"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">        PropertyValuesHolder pvhRight = PropertyValuesHolder.ofInt(<span class="string">"right"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">        PropertyValuesHolder pvhBottom = PropertyValuesHolder.ofInt(<span class="string">"bottom"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">        PropertyValuesHolder pvhScrollX = PropertyValuesHolder.ofInt(<span class="string">"scrollX"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">        PropertyValuesHolder pvhScrollY = PropertyValuesHolder.ofInt(<span class="string">"scrollY"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">        defaultChangeIn = ObjectAnimator.ofPropertyValuesHolder((Object)<span class="keyword">null</span>,</div><div class="line">                pvhLeft, pvhTop, pvhRight, pvhBottom, pvhScrollX, pvhScrollY);</div><div class="line">        defaultChangeIn.setDuration(DEFAULT_DURATION);</div><div class="line">        defaultChangeIn.setStartDelay(mChangingAppearingDelay);</div><div class="line">        defaultChangeIn.setInterpolator(mChangingAppearingInterpolator);</div><div class="line">        defaultChangeOut = defaultChangeIn.clone();</div><div class="line">        defaultChangeOut.setStartDelay(mChangingDisappearingDelay);</div><div class="line">        defaultChangeOut.setInterpolator(mChangingDisappearingInterpolator);</div><div class="line">        defaultChange = defaultChangeIn.clone();</div><div class="line">        defaultChange.setStartDelay(mChangingDelay);</div><div class="line">        defaultChange.setInterpolator(mChangingInterpolator);</div><div class="line"></div><div class="line">        defaultFadeIn = ObjectAnimator.ofFloat(<span class="keyword">null</span>, <span class="string">"alpha"</span>, <span class="number">0f</span>, <span class="number">1f</span>);</div><div class="line">        defaultFadeIn.setDuration(DEFAULT_DURATION);</div><div class="line">        defaultFadeIn.setStartDelay(mAppearingDelay);</div><div class="line">        defaultFadeIn.setInterpolator(mAppearingInterpolator);</div><div class="line">        defaultFadeOut = ObjectAnimator.ofFloat(<span class="keyword">null</span>, <span class="string">"alpha"</span>, <span class="number">1f</span>, <span class="number">0f</span>);</div><div class="line">        defaultFadeOut.setDuration(DEFAULT_DURATION);</div><div class="line">        defaultFadeOut.setStartDelay(mDisappearingDelay);</div><div class="line">        defaultFadeOut.setInterpolator(mDisappearingInterpolator);</div><div class="line">    &#125;</div><div class="line">    mChangingAppearingAnim = defaultChangeIn;</div><div class="line">    mChangingDisappearingAnim = defaultChangeOut;</div><div class="line">    mChangingAnim = defaultChange;</div><div class="line">    mAppearingAnim = defaultFadeIn;</div><div class="line">    mDisappearingAnim = defaultFadeOut;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在<code>LayoutTransition</code>的构造方法中给我们实现好了默认的动画效果，总共包含4中动画效果，分别是：</p>
+<ol>
+<li><code>APPEARING</code>：<code>View</code>出现动画，当<code>View</code>在父容器中出现时候的动画；</li>
+<li><code>DISAPPEARING</code>：<code>View</code>消失动画，当<code>View</code>在父容器中消失时候的动画；</li>
+<li><code>CHANGE_APPEARING</code>：由于某些<code>View</code>出现在父容器中时，容器中其他的<code>View</code>而发生变化时的动画；</li>
+<li><code>CHANGE_DISAPPEARING</code>：由于某些<code>View</code>在父容器中消失时，容器中其他的<code>View</code>而发生变化时的动画。</li>
+</ol>
+<p>我们可以调用<code>setAnimator</code>给<code>LayoutTransition</code>分别设置这些动画。</p>
+<h3 id="代码片段"><a href="#代码片段" class="headerlink" title="代码片段"></a>代码片段</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">LayoutTransition layoutTransition = <span class="keyword">new</span> LayoutTransition();</div><div class="line">mContentLL.setLayoutTransition(layoutTransition);</div><div class="line"><span class="comment">//Appearing</span></div><div class="line">PropertyValuesHolder pvhAppearingTranslation = PropertyValuesHolder.ofFloat(<span class="string">"translationX"</span>, <span class="number">800</span>, <span class="number">0</span>);</div><div class="line">PropertyValuesHolder pvhAppearingAlpha = PropertyValuesHolder.ofFloat(<span class="string">"alpha"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">PropertyValuesHolder pvhAppearingScaleX = PropertyValuesHolder.ofFloat(<span class="string">"scaleX"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">PropertyValuesHolder pvhAppearingScaleY = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>, <span class="number">0</span>, <span class="number">1</span>);</div><div class="line">PropertyValuesHolder pvhAppearingRotationX = PropertyValuesHolder.ofFloat(<span class="string">"rotationX"</span>, <span class="number">0</span>, <span class="number">360</span>);</div><div class="line">ObjectAnimator appearingAnimator = ObjectAnimator.ofPropertyValuesHolder((Object) <span class="keyword">null</span>, pvhAppearingTranslation, pvhAppearingAlpha, pvhAppearingScaleX, pvhAppearingScaleY, pvhAppearingRotationX);</div><div class="line"><span class="comment">//Disappearing</span></div><div class="line">PropertyValuesHolder pvhDisappearingTranslation = PropertyValuesHolder.ofFloat(<span class="string">"translationX"</span>, <span class="number">0</span>, <span class="number">800</span>);</div><div class="line">PropertyValuesHolder pvhDisappearingAlpha = PropertyValuesHolder.ofFloat(<span class="string">"alpha"</span>, <span class="number">1</span>, <span class="number">0</span>);</div><div class="line">PropertyValuesHolder pvhDisappearingScaleY = PropertyValuesHolder.ofFloat(<span class="string">"scaleY"</span>, <span class="number">1</span>, <span class="number">0</span>);</div><div class="line">ObjectAnimator disappearingAnimator = ObjectAnimator.ofPropertyValuesHolder((Object) <span class="keyword">null</span>, pvhDisappearingTranslation, pvhDisappearingAlpha, pvhDisappearingScaleY);</div><div class="line"></div><div class="line">layoutTransition.setAnimator(LayoutTransition.APPEARING, appearingAnimator);</div><div class="line">layoutTransition.setInterpolator(LayoutTransition.APPEARING, <span class="keyword">new</span> OvershootInterpolator());</div><div class="line">layoutTransition.setDuration(LayoutTransition.APPEARING, <span class="number">1200</span>);</div><div class="line">layoutTransition.setAnimator(LayoutTransition.DISAPPEARING, disappearingAnimator);</div></pre></td></tr></table></figure>
+<p><img src="screen.gif" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/20/Scroller-基本用法/" rel="next" title="Scroller 基本用法">
+                <i class="fa fa-chevron-left"></i> Scroller 基本用法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="panda" />
+          <p class="site-author-name" itemprop="name">panda</p>
+          <p class="site-description motion-element" itemprop="description">这个帅哥很懒，只留下这段话。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/panda912" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/yuafangdehai" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码片段"><span class="nav-number">2.</span> <span class="nav-text">代码片段</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">panda</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

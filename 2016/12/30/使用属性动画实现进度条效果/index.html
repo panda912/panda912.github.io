@@ -1,0 +1,603 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="动画," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="参考链接：http://blog.csdn.net/AndroidMsky/article/details/50239447
+最近项目中要做一个显示进度的效果，设计给了我们每个阶段的切图，只要根据数据显示不同的图片就可以了，后来空闲的时候就想着把它做成动态的效果，以前无意间看到上面的文章，正好在这里用到，实现方式比较简单，就三层View，最底层是绿色的View，中间一层是灰色的View，最上层就是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用属性动画实现进度条效果">
+<meta property="og:url" content="http://yoursite.com/2016/12/30/使用属性动画实现进度条效果/index.html">
+<meta property="og:site_name" content="远方的海">
+<meta property="og:description" content="参考链接：http://blog.csdn.net/AndroidMsky/article/details/50239447
+最近项目中要做一个显示进度的效果，设计给了我们每个阶段的切图，只要根据数据显示不同的图片就可以了，后来空闲的时候就想着把它做成动态的效果，以前无意间看到上面的文章，正好在这里用到，实现方式比较简单，就三层View，最底层是绿色的View，中间一层是灰色的View，最上层就是">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/ad5b14bfgw1fb8rj4os0dj20he00z0sn.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/ad5b14bfgw1fb8nweytb1g207i0dcwvr.gif">
+<meta property="og:updated_time" content="2017-01-13T02:36:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用属性动画实现进度条效果">
+<meta name="twitter:description" content="参考链接：http://blog.csdn.net/AndroidMsky/article/details/50239447
+最近项目中要做一个显示进度的效果，设计给了我们每个阶段的切图，只要根据数据显示不同的图片就可以了，后来空闲的时候就想着把它做成动态的效果，以前无意间看到上面的文章，正好在这里用到，实现方式比较简单，就三层View，最底层是绿色的View，中间一层是灰色的View，最上层就是">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/ad5b14bfgw1fb8rj4os0dj20he00z0sn.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 使用属性动画实现进度条效果 | 远方的海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">远方的海</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用属性动画实现进度条效果
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-30T14:01:20+08:00" content="2016-12-30">
+              2016-12-30
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="http://blog.csdn.net/AndroidMsky/article/details/50239447" target="_blank" rel="external">http://blog.csdn.net/AndroidMsky/article/details/50239447</a></p>
+<p>最近项目中要做一个显示进度的效果，设计给了我们每个阶段的切图，只要根据数据显示不同的图片就可以了，后来空闲的时候就想着把它做成动态的效果，以前无意间看到上面的文章，正好在这里用到，实现方式比较简单，就三层<code>View</code>，最底层是绿色的<code>View</code>，中间一层是灰色的<code>View</code>，最上层就是一个空心的<code>ImageView</code>，使用属性动画控制中间灰色的<code>View</code>向右平移，最底层绿色就会显示出来，从而实现动态进度条的效果。至于底部的文字，就是 <code>LinearLayout</code> 四等分，在<code>addUpdateListener</code>中获取动画当前的<code>value</code>，动态设置文字的颜色。</p>
+<p><img src="https://ws3.sinaimg.cn/large/ad5b14bfgw1fb8rj4os0dj20he00z0sn.jpg" alt=""></p>
+<p><img src="https://ws2.sinaimg.cn/large/ad5b14bfgw1fb8nweytb1g207i0dcwvr.gif" alt=""></p>
+<h3 id="代码片段："><a href="#代码片段：" class="headerlink" title="代码片段："></a>代码片段：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mProgressMaskView 中间灰色遮罩层View</span></div><div class="line"><span class="comment">// mProgressDrawableWidth 进度条的宽度</span></div><div class="line"><span class="comment">// state 服务器返回的字段 1、2、3、4，对应每一个阶段</span></div><div class="line"><span class="keyword">final</span> <span class="keyword">int</span> state = StringConversionUtil.parseInt(obj.ob_state, <span class="number">1</span>);</div><div class="line"><span class="keyword">if</span> (mProgressAnimator == <span class="keyword">null</span>) &#123;</div><div class="line">    mProgressAnimator = ObjectAnimator.ofFloat(mProgressMaskView, <span class="string">"translationX"</span>, <span class="number">0</span>, mProgressDrawableWidth * state / <span class="number">4</span>);</div><div class="line">    mProgressAnimator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</div><div class="line">            <span class="keyword">float</span> value = (<span class="keyword">float</span>) animation.getAnimatedValue();</div><div class="line">            <span class="keyword">int</span> index = (<span class="keyword">int</span>) (value / (mProgressDrawableWidth / <span class="number">4</span>));</div><div class="line">            <span class="comment">//设置底部文字的颜色</span></div><div class="line">            ((TextView) mProgressInfoLL.getChildAt(Math.min(index, state - <span class="number">1</span>))).setTextColor(getResources().getColor(R.color.toolbar_green));</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    mProgressAnimator.setDuration(<span class="number">1000</span>);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    mProgressAnimator.setFloatValues(<span class="number">0</span>, mProgressDrawableWidth * state / <span class="number">4</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (!mProgressAnimator.isRunning()) &#123;</div><div class="line">    mProgressAnimator.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/动画/" rel="tag">#动画</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/23/Android-Drawable-之-LevelListDrawable/" rel="next" title="Android Drawable 之 LevelListDrawable">
+                <i class="fa fa-chevron-left"></i> Android Drawable 之 LevelListDrawable
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/12/Android-L-使用-ViewOutlineProvider-裁剪-View/" rel="prev" title="Android L 使用 ViewOutlineProvider 裁剪 View">
+                Android L 使用 ViewOutlineProvider 裁剪 View <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="panda" />
+          <p class="site-author-name" itemprop="name">panda</p>
+          <p class="site-description motion-element" itemprop="description">这个帅哥很懒，只留下这段话。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/panda912" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/yuafangdehai" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接："><span class="nav-number">1.</span> <span class="nav-text">参考链接：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码片段："><span class="nav-number">2.</span> <span class="nav-text">代码片段：</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">panda</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
