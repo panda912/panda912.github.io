@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="远方的海">
 <meta property="og:description" content="关于 Handler 的用法相信大家都应该知道，比如这样：
 123456789101112131415161718192021222324252627282930313233343536public class HandlerActivity extends AppCompatActivity &amp;#123;    private MyHandler mHandler;    @Override">
-<meta property="og:updated_time" content="2017-02-07T02:51:21.000Z">
+<meta property="og:updated_time" content="2017-02-07T02:52:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 之 Handler机制浅析">
 <meta name="twitter:description" content="关于 Handler 的用法相信大家都应该知道，比如这样：
@@ -348,6 +348,7 @@
 <p>然后调用 sendMessageXXX -&gt; sendMessageAtTime -&gt; enqueueMessage -&gt; MessageQueue enqueueMessage …… 后面流程都一样了，然后在 <code>dispatchMessage</code> 的时候，因为 <code>msg.callback != null</code> ,所以就执行了 <code>handleCallback(msg)</code> ：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">handleCallback</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">    message.callback.run();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p> 就是执行了 <code>Runnable</code> 的 <code>run()</code> 。</p>
+<p>完毕。</p>
 
       
     </div>
