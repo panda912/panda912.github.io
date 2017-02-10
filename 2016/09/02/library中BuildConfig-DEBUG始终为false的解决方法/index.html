@@ -98,7 +98,7 @@ http://stackoverflow.com/questions/20176284/buildconfig-debug-always-false-when-
 
 修改默认的发布配置通过 android.publishNonDefault = true 启用其他variants的发布
 通过 compile proj">
-<meta property="og:updated_time" content="2016-09-20T02:27:35.000Z">
+<meta property="og:updated_time" content="2017-02-10T01:28:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="library中BuildConfig.DEBUG始终为false的解决方法">
 <meta name="twitter:description" content="参考：
@@ -311,36 +311,20 @@ http://stackoverflow.com/questions/20176284/buildconfig-debug-always-false-when-
 <blockquote>
 <p>library module :</p>
 </blockquote>
-<pre><code>android {
-    publishNonDefault true
-}
-</code></pre><blockquote>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">	publishNonDefault <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>app module:</p>
 </blockquote>
-<pre><code>dependencies {
-    debugCompile project(path: &apos;:library&apos;, configuration: &apos;debug&apos;)
-    releaseCompile project(path: &apos;:library&apos;, configuration: &apos;release&apos;)
-}
-</code></pre><h4 id="自定义buildconfig-field"><a href="#自定义buildconfig-field" class="headerlink" title="自定义buildconfig field"></a>自定义buildconfig field</h4><blockquote>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">	debugCompile project(<span class="string">path:</span> <span class="string">':library'</span>, <span class="string">configuration:</span> <span class="string">'debug'</span>)</div><div class="line">	releaseCompile project(<span class="string">path:</span> <span class="string">':library'</span>, <span class="string">configuration:</span> <span class="string">'release'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="自定义buildconfig-field"><a href="#自定义buildconfig-field" class="headerlink" title="自定义buildconfig field"></a>自定义buildconfig field</h4><blockquote>
 <p>library module:</p>
 </blockquote>
-<pre><code>android {
-    buildTypes {
-        debug {
-            buildConfigField &quot;boolean&quot;, &quot;LOG_DEBUG&quot;, &quot;true&quot;
-        }
-        release {
-            buildConfigField &quot;boolean&quot;, &quot;LOG_DEBUG&quot;, &quot;false&quot;
-        }
-    }
-}
-</code></pre><blockquote>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">	buildTypes &#123;</div><div class="line">    	debug &#123;</div><div class="line">        	buildConfigField <span class="string">"boolean"</span>, <span class="string">"LOG_DEBUG"</span>, <span class="string">"true"</span></div><div class="line">    	&#125;</div><div class="line">    	release &#123;</div><div class="line">        	buildConfigField <span class="string">"boolean"</span>, <span class="string">"LOG_DEBUG"</span>, <span class="string">"false"</span></div><div class="line">    	&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>java code</p>
 </blockquote>
-<pre><code>if (BuildConfig.LOG_DEBUG) {
-    // TODO
-}
-</code></pre><p>ReBuild之后你会发现debug和release模式下<code>BuildConfig</code>中<code>LOG_DEBUG</code>的值是不同的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (BuildConfig.LOG_DEBUG) &#123;</div><div class="line">	<span class="comment">// TODO</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ReBuild之后你会发现debug和release模式下<code>BuildConfig</code>中<code>LOG_DEBUG</code>的值是不同的。</p>
 <p>这种方式不仅用与此，你还可以添加其他的字段，比如debug和release模式下不同的API base url，等等。</p>
 
       
