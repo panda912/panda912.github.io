@@ -92,7 +92,7 @@ AsyncTask enables proper and easy use of the UI thread. This class allows to per
 <meta property="og:site_name" content="远方的海">
 <meta property="og:description" content="AsyncTask 的源码注释不要写的太详细哦。
 AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipulate th">
-<meta property="og:updated_time" content="2017-02-10T09:57:23.000Z">
+<meta property="og:updated_time" content="2017-02-10T10:01:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android多线程之AsyncTask">
 <meta name="twitter:description" content="AsyncTask 的源码注释不要写的太详细哦。
@@ -321,10 +321,10 @@ AsyncTask enables proper and easy use of the UI thread. This class allows to per
 <h3 id="Cancelling-a-task"><a href="#Cancelling-a-task" class="headerlink" title="Cancelling a task"></a>Cancelling a task</h3><p>A task can be cancelled at any time by invoking <code>cancel(boolean)</code>. Invoking this method will cause subsequent calls to <code>isCancelled()</code> to return true. After invoking this method, <code>onCancelled(Object)</code>, instead of <code>onPostExecute(Object)</code> will be invoked after <code>doInBackground(Object[])</code> returns. <strong>To ensure that a task is cancelled as quickly as possible, you should always check the return value of <code>isCancelled()</code> periodically from <code>doInBackground(Object[])</code>, if possible (inside a loop for instance.)</strong></p>
 <h3 id="Threading-rules"><a href="#Threading-rules" class="headerlink" title="Threading rules"></a>Threading rules</h3><p>There are a few threading rules that must be followed for this class to work properly:</p>
 <ul>
-<li>The AsyncTask class must be loaded on the UI thread. This is done automatically as of JELLY_BEAN.</li>
+<li>The AsyncTask class must be loaded on the UI thread. This is done automatically as of <code>JELLY_BEAN</code>.</li>
 <li>The task instance must be created on the UI thread.</li>
-<li>execute(Params…) must be invoked on the UI thread.</li>
-<li>Do not call onPreExecute(), onPostExecute(Result), doInBackground(Params…), onProgressUpdate(Progress…) manually.</li>
+<li><code>execute(Params...)</code> must be invoked on the UI thread.</li>
+<li>Do not call <code>onPreExecute()</code>, <code>onPostExecute(Result)</code>, <code>doInBackground(Params...)</code>, <code>onProgressUpdate(Progress...)</code> manually.</li>
 <li>The task can be executed only once (an exception will be thrown if a second execution is attempted.)</li>
 </ul>
 <h3 id="Memory-observability"><a href="#Memory-observability" class="headerlink" title="Memory observability"></a>Memory observability</h3><p>AsyncTask guarantees that all callback calls are synchronized in such a way that the following operations are safe without explicit synchronizations.</p>
