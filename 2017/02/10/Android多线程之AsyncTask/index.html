@@ -92,7 +92,7 @@ AsyncTask enables proper and easy use of the UI thread. This class allows to per
 <meta property="og:site_name" content="远方的海">
 <meta property="og:description" content="写个鸡儿，AsyncTask 的源码注释不要写的太详细哦。
 AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipula">
-<meta property="og:updated_time" content="2017-02-10T09:46:20.000Z">
+<meta property="og:updated_time" content="2017-02-10T09:54:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android多线程之AsyncTask">
 <meta name="twitter:description" content="写个鸡儿，AsyncTask 的源码注释不要写的太详细哦。
@@ -327,6 +327,13 @@ AsyncTask enables proper and easy use of the UI thread. This class allows to per
 <li>Do not call onPreExecute(), onPostExecute(Result), doInBackground(Params…), onProgressUpdate(Progress…) manually.</li>
 <li>The task can be executed only once (an exception will be thrown if a second execution is attempted.)</li>
 </ul>
+<h3 id="Memory-observability"><a href="#Memory-observability" class="headerlink" title="Memory observability"></a>Memory observability</h3><p>AsyncTask guarantees that all callback calls are synchronized in such a way that the following operations are safe without explicit synchronizations.</p>
+<ul>
+<li>Set member fields in the constructor or <code>onPreExecute()</code>, and refer to them in <code>doInBackground(Params...)</code>.</li>
+<li>Set member fields in <code>doInBackground(Params...)</code>, and refer to them in <code>onProgressUpdate(Progress...)</code> and <code>onPostExecute(Result)</code>.</li>
+</ul>
+<h3 id="Order-of-execution"><a href="#Order-of-execution" class="headerlink" title="Order of execution"></a>Order of execution</h3><p>When first introduced, AsyncTasks were executed serially on a single background thread. Starting with <code>DONUT</code>, this was changed to a pool of threads allowing multiple tasks to operate in parallel. Starting with <code>HONEYCOMB</code>, tasks are executed on a single thread to avoid common application errors caused by parallel execution.</p>
+<p>If you truly want parallel execution, you can invoke <code>executeOnExecutor(java.util.concurrent.Executor, Object[])</code> with <code>THREAD_POOL_EXECUTOR</code>.</p>
 
       
     </div>
@@ -484,7 +491,7 @@ AsyncTask enables proper and easy use of the UI thread. This class allows to per
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Developer-Guides"><span class="nav-number">1.</span> <span class="nav-text">Developer Guides</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Usage"><span class="nav-number">2.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AsyncTask’s-generic-types"><span class="nav-number">3.</span> <span class="nav-text">AsyncTask’s generic types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-4-steps"><span class="nav-number">4.</span> <span class="nav-text">The 4 steps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cancelling-a-task"><span class="nav-number">5.</span> <span class="nav-text">Cancelling a task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Threading-rules"><span class="nav-number">6.</span> <span class="nav-text">Threading rules</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Developer-Guides"><span class="nav-number">1.</span> <span class="nav-text">Developer Guides</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Usage"><span class="nav-number">2.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AsyncTask’s-generic-types"><span class="nav-number">3.</span> <span class="nav-text">AsyncTask’s generic types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-4-steps"><span class="nav-number">4.</span> <span class="nav-text">The 4 steps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cancelling-a-task"><span class="nav-number">5.</span> <span class="nav-text">Cancelling a task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Threading-rules"><span class="nav-number">6.</span> <span class="nav-text">Threading rules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-observability"><span class="nav-number">7.</span> <span class="nav-text">Memory observability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Order-of-execution"><span class="nav-number">8.</span> <span class="nav-text">Order of execution</span></a></li></ol></div>
             
           </div>
         </section>
