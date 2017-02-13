@@ -85,25 +85,25 @@
 
 
 <meta name="description" content="APP上用的最多的功能之一可能就是下拉刷新了，今天就用RN来封装一个基于android-Ultra-Pull-To-Refresh的下拉刷新控件。
-封装 Android 原生 UI 控件的流程
+封装流程
 继承SimpleViewManager或ViewGroupManager创建视图管理器类；
-继承ReactPackage创建自定义ReactPackage，重写createNativeModules、cre">
+继承ReactPackage创建自定义ReactPackage，重写createNativeModules、createJSModules、creat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native 封装Android UI组件">
 <meta property="og:url" content="http://yoursite.com/2017/01/17/React-Native-封装Android-UI组件/index.html">
 <meta property="og:site_name" content="远方的海">
 <meta property="og:description" content="APP上用的最多的功能之一可能就是下拉刷新了，今天就用RN来封装一个基于android-Ultra-Pull-To-Refresh的下拉刷新控件。
-封装 Android 原生 UI 控件的流程
+封装流程
 继承SimpleViewManager或ViewGroupManager创建视图管理器类；
-继承ReactPackage创建自定义ReactPackage，重写createNativeModules、cre">
+继承ReactPackage创建自定义ReactPackage，重写createNativeModules、createJSModules、creat">
 <meta property="og:image" content="http://yoursite.com/screen.gif">
-<meta property="og:updated_time" content="2017-02-13T02:46:23.000Z">
+<meta property="og:updated_time" content="2017-02-13T03:25:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native 封装Android UI组件">
 <meta name="twitter:description" content="APP上用的最多的功能之一可能就是下拉刷新了，今天就用RN来封装一个基于android-Ultra-Pull-To-Refresh的下拉刷新控件。
-封装 Android 原生 UI 控件的流程
+封装流程
 继承SimpleViewManager或ViewGroupManager创建视图管理器类；
-继承ReactPackage创建自定义ReactPackage，重写createNativeModules、cre">
+继承ReactPackage创建自定义ReactPackage，重写createNativeModules、createJSModules、creat">
 <meta name="twitter:image" content="http://yoursite.com/screen.gif">
 
 
@@ -303,7 +303,7 @@
 
       
         <p>APP上用的最多的功能之一可能就是下拉刷新了，今天就用<code>RN</code>来封装一个基于<a href="https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh" target="_blank" rel="external">android-Ultra-Pull-To-Refresh</a>的下拉刷新控件。</p>
-<h3 id="封装-Android-原生-UI-控件的流程"><a href="#封装-Android-原生-UI-控件的流程" class="headerlink" title="封装 Android 原生 UI 控件的流程"></a>封装 Android 原生 UI 控件的流程</h3><ol>
+<h3 id="封装流程"><a href="#封装流程" class="headerlink" title="封装流程"></a>封装流程</h3><ol>
 <li>继承<code>SimpleViewManager</code>或<code>ViewGroupManager</code>创建视图管理器类；</li>
 <li>继承<code>ReactPackage</code>创建自定义ReactPackage，重写<code>createNativeModules</code>、<code>createJSModules</code>、<code>createViewManagers</code>这三个方法，返回类型都是 List 类型， 在<code>createViewManagers</code>中添加我们创建好的视图管理器类到集合中，另外两个方法可以返回空 List 集合；</li>
 <li>在Application 中添加自定义的 ReactPackage；</li>
@@ -494,7 +494,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装-Android-原生-UI-控件的流程"><span class="nav-number">1.</span> <span class="nav-text">封装 Android 原生 UI 控件的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码片段"><span class="nav-number">2.</span> <span class="nav-text">代码片段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果图"><span class="nav-number">3.</span> <span class="nav-text">效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目地址"><span class="nav-number">4.</span> <span class="nav-text">项目地址</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装流程"><span class="nav-number">1.</span> <span class="nav-text">封装流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码片段"><span class="nav-number">2.</span> <span class="nav-text">代码片段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果图"><span class="nav-number">3.</span> <span class="nav-text">效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目地址"><span class="nav-number">4.</span> <span class="nav-text">项目地址</span></a></li></ol></div>
             
           </div>
         </section>
