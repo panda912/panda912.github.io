@@ -500,23 +500,10 @@
           
           
 
-
-
-
-1
-2
-
-
-
-
-
-
-
-
-
 #实现方式1.在顶部放一个与scrollview中相同布局的浮动view，控制显示/隐藏；
 2.view.setTranslationY(translationY)；
-如果这个浮动的view有多种状态（类似tab切换这种），那么方式1就比较麻烦，要同步状态，所以本
+如果这个浮动的view有多种状态（类似tab切换这种），那么方式1就比较麻烦，要同步状态，所以本文是用方式2实现的。
+#代码分析
           ...
 
           <div class="post-more-link text-center">
