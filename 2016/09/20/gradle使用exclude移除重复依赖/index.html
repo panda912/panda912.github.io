@@ -84,28 +84,28 @@
 
 
 
-<meta name="description" content="+— com.android.support:design:24.2.1
+<meta name="description" content="exclude+— com.android.support:design:24.2.1
 |　　+— com.android.support:support-v4:24.2.1 (*)
 |　　+— com.android.support:appcompat-v7:24.2.1 (*)
 |　　\ — com.android.support:recyclerview-v7:24.2.1
-|　　　　+— com.and">
+|　　　　+—">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gradle使用exclude移除重复依赖">
 <meta property="og:url" content="http://www.panda912.com/2016/09/20/gradle使用exclude移除重复依赖/index.html">
 <meta property="og:site_name" content="远方的海">
-<meta property="og:description" content="+— com.android.support:design:24.2.1
+<meta property="og:description" content="exclude+— com.android.support:design:24.2.1
 |　　+— com.android.support:support-v4:24.2.1 (*)
 |　　+— com.android.support:appcompat-v7:24.2.1 (*)
 |　　\ — com.android.support:recyclerview-v7:24.2.1
-|　　　　+— com.and">
-<meta property="og:updated_time" content="2016-11-01T09:36:40.000Z">
+|　　　　+—">
+<meta property="og:updated_time" content="2017-03-07T06:44:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gradle使用exclude移除重复依赖">
-<meta name="twitter:description" content="+— com.android.support:design:24.2.1
+<meta name="twitter:description" content="exclude+— com.android.support:design:24.2.1
 |　　+— com.android.support:support-v4:24.2.1 (*)
 |　　+— com.android.support:appcompat-v7:24.2.1 (*)
 |　　\ — com.android.support:recyclerview-v7:24.2.1
-|　　　　+— com.and">
+|　　　　+—">
 
 
 
@@ -343,7 +343,7 @@
       
 
       
-        <p>+— com.android.support:design:24.2.1</p>
+        <h3 id="exclude"><a href="#exclude" class="headerlink" title="exclude"></a>exclude</h3><p>+— com.android.support:design:24.2.1</p>
 <p>|　　+— com.android.support:support-v4:24.2.1 (*)</p>
 <p>|　　+— com.android.support:appcompat-v7:24.2.1 (*)</p>
 <p>|　　\ — com.android.support:recyclerview-v7:24.2.1</p>
@@ -354,7 +354,8 @@
 <pre><code>compile(&apos;com.android.support:design:24.2.1&apos;) {
     exclude group: &apos;com.android.support&apos;, module: &apos;support-v4&apos;
 }
-</code></pre><p><code>group</code>对应<code>com.android.support</code>， <code>module</code>对应<code>support-v4</code>，如果只写<code>group</code>，不写<code>module</code>，那么将会移除<code>design</code>包下所有与<code>group</code>对应的包。<br>​    </p>
+</code></pre><p><code>group</code>对应<code>com.android.support</code>， <code>module</code>对应<code>support-v4</code>，如果只写<code>group</code>，不写<code>module</code>，那么将会移除<code>design</code>包下所有与<code>group</code>对应的包。</p>
+<h3 id="transitive"><a href="#transitive" class="headerlink" title="transitive"></a>transitive</h3><p>用于自动处理子依赖项。默认为 true，gradle 自动添加子依赖项；设置为 false，则需要手动添加每个依赖项。</p>
 
       
     </div>
@@ -545,7 +546,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#exclude"><span class="nav-number">1.</span> <span class="nav-text">exclude</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transitive"><span class="nav-number">2.</span> <span class="nav-text">transitive</span></a></li></ol></div>
             
           </div>
         </section>

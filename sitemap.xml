@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.panda912.com/2016/09/20/gradle%E4%BD%BF%E7%94%A8exclude%E7%A7%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E4%BE%9D%E8%B5%96/</loc>
+    
+    <lastmod>2017-03-07T06:44:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.panda912.com/about/index.html</loc>
     
     <lastmod>2017-03-01T03:53:26.000Z</lastmod>
@@ -110,13 +117,6 @@
     <loc>http://www.panda912.com/2016/12/23/Android-Drawable-%E4%B9%8B-LevelListDrawable/</loc>
     
     <lastmod>2016-12-30T02:43:34.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.panda912.com/2016/09/20/gradle%E4%BD%BF%E7%94%A8exclude%E7%A7%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E4%BE%9D%E8%B5%96/</loc>
-    
-    <lastmod>2016-11-01T09:36:40.000Z</lastmod>
     
   </url>
   

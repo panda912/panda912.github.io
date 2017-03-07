@@ -103,7 +103,7 @@
     <entry>
       <title><![CDATA[gradle使用exclude移除重复依赖]]></title>
       <url>%2F2016%2F09%2F20%2Fgradle%E4%BD%BF%E7%94%A8exclude%E7%A7%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E4%BE%9D%E8%B5%96%2F</url>
-      <content type="text"><![CDATA[+— com.android.support:design:24.2.1 | +— com.android.support:support-v4:24.2.1 (*) | +— com.android.support:appcompat-v7:24.2.1 (*) | \ — com.android.support:recyclerview-v7:24.2.1 | +— com.android.support:support-annotations:24.2.1 | +— com.android.support:support-compat:24.2.1 (*) | \ — com.android.support:support-core-ui:24.2.1 (*) 上面是com.android.support:design:24.2.1的依赖关系，如果项目已经依赖了com.android.support:support-v4:24.2.1，那么就可以吧design包中的support-v4移除。 compile(&apos;com.android.support:design:24.2.1&apos;) { exclude group: &apos;com.android.support&apos;, module: &apos;support-v4&apos; } group对应com.android.support， module对应support-v4，如果只写group，不写module，那么将会移除design包下所有与group对应的包。​]]></content>
+      <content type="text"><![CDATA[exclude+— com.android.support:design:24.2.1 | +— com.android.support:support-v4:24.2.1 (*) | +— com.android.support:appcompat-v7:24.2.1 (*) | \ — com.android.support:recyclerview-v7:24.2.1 | +— com.android.support:support-annotations:24.2.1 | +— com.android.support:support-compat:24.2.1 (*) | \ — com.android.support:support-core-ui:24.2.1 (*) 上面是com.android.support:design:24.2.1的依赖关系，如果项目已经依赖了com.android.support:support-v4:24.2.1，那么就可以吧design包中的support-v4移除。 compile(&apos;com.android.support:design:24.2.1&apos;) { exclude group: &apos;com.android.support&apos;, module: &apos;support-v4&apos; } group对应com.android.support， module对应support-v4，如果只写group，不写module，那么将会移除design包下所有与group对应的包。 transitive用于自动处理子依赖项。默认为 true，gradle 自动添加子依赖项；设置为 false，则需要手动添加每个依赖项。]]></content>
     </entry>
 
     
