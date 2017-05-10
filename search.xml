@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[反编译 jar 包修改代码后重新打包]]></title>
+      <url>%2F2017%2F05%2F10%2F%E5%8F%8D%E7%BC%96%E8%AF%91-jar-%E5%8C%85%E4%BF%AE%E6%94%B9%E4%BB%A3%E7%A0%81%E5%90%8E%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85%2F</url>
+      <content type="text"><![CDATA[定位要修改的类，新建一个工程，包名与 jar 包名一致，新建同名的类，将 class 中的代码拷贝进去，然后将 jar 包中要修改的类删除，将删除后的类的 jar 包添加到新的工程中，重新编译，将编译后的 class 文件拷贝到 jar 包中，over！ 举个栗子： 现在如果要修改 udesk jar 包中的 e、f、g、h、l、UdeskHttpFacade.class 文件，新建一个工程，包名一致，新建需要修改的同名的类文件，将代码拷贝进去 删除原 jar 包中需要修改的 class 文件，将新的 jar 包放进新的工程 libs 下 修改需要修改的代码，使其能够正确编译，编译之后拷贝生成对应的 class 文件，放进新的 jar 包中 mac 下没有找到可以直接删除 jar 中的 class 文件的工具，在 windows 下可以直接用 winrar 打开，直接删除或者添加 class 文件。]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[Android各大直播SDK分析]]></title>
       <url>%2F2017%2F04%2F26%2FAndroid%E5%90%84%E5%A4%A7%E7%9B%B4%E6%92%ADSDK%E5%88%86%E6%9E%90%2F</url>
       <content type="text"><![CDATA[1. 百度云音视频直播 LSS:2. 七牛直播云：Pili 直播 SDK https://github.com/pili-engineering/PLDroidMediaStreaming https://github.com/pili-engineering/PLDroidPlayer 3. 腾讯云直播：4. 阿里云视频直播：5. 趣拍云：6. 金山云：https://github.com/ksvc/KSYLive_Android https://github.com/ksvc/KSYMediaPlayer_Android 音视频采集、推流、播放免费，云存储、CDN 分发、动态贴纸、连麦、第三方美颜等收费。 7. 即构：客户案例：花椒直播、映客直播等 8. EasyDarwin：https://github.com/EasyDarwin/EasyDarwin 开源+商业 9. 大牛直播：https://github.com/daniulive/SmarterStreaming SmarterStreaming SDK可供个人学习之用，企业及商用需要经过授权 10. 来疯直播开源项目：https://github.com/LaiFeng-Android/SopCastComponent 11. yasea：https://github.com/begeekmyfriend/yasea RTMP live streaming client for Android 软硬解码，本地记录，滤镜 12. EvilsLive:https://github.com/ThinkKeep/EvilsLive 视频采集、推流、预览、播放、美图 Android Studio &gt;= 2.2.3Android API &gt;= 19 [x] 视频编码：H.264 [x] 推流协议：RTMP [x] 预览与推流分辨率可分别自由设置 [x] 支持前、后置摄像头动态切换 [ ] 支持软编、硬编及软编兼容模式 [ ] 网络自适应，可根据实际网络情况动态调整目标码率，保证流畅性 [ ] 音频编码：AAC [ ] 支持动态横竖屏推流 [ ] 音视频目标码率：可设]]></content>
