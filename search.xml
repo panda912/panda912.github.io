@@ -5,7 +5,7 @@
     <entry>
       <title><![CDATA[反编译 jar 包修改代码后重新打包]]></title>
       <url>%2F2017%2F05%2F10%2F%E5%8F%8D%E7%BC%96%E8%AF%91-jar-%E5%8C%85%E4%BF%AE%E6%94%B9%E4%BB%A3%E7%A0%81%E5%90%8E%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85%2F</url>
-      <content type="text"><![CDATA[定位要修改的类，新建一个工程，包名与 jar 包名一致，新建同名的类，将 class 中的代码拷贝进去，然后将 jar 包中要修改的类删除，将删除后的类的 jar 包添加到新的工程中，重新编译，将编译后的 class 文件拷贝到 jar 包中，over！ 举个栗子： 现在如果要修改 udesk jar 包中的 e、f、g、h、l、UdeskHttpFacade.class 文件，新建一个工程，包名一致，新建需要修改的同名的类文件，将代码拷贝进去 删除原 jar 包中需要修改的 class 文件，将新的 jar 包放进新的工程 libs 下 修改需要修改的代码，使其能够正确编译，编译之后拷贝生成对应的 class 文件，放进新的 jar 包中 mac 下没有找到可以直接删除 jar 中的 class 文件的工具，在 windows 下可以直接用 winrar 打开，直接删除或者添加 class 文件。]]></content>
+      <content type="text"><![CDATA[定位要修改的类，新建一个工程，包名与 jar 包名一致，新建同名的类，将 class 中的代码拷贝进去，然后将 jar 包中要修改的类删除，将删除后的类的 jar 包添加到新的工程中，重新编译，将编译后的 class 文件拷贝到 jar 包中，over！ 举个栗子： 现在如果要修改 udesk jar 包中的 e、f、g、h、l、UdeskHttpFacade.class 文件，新建一个工程，包名一致，新建需要修改的同名的类文件，将代码拷贝进去 删除原 jar 包中需要修改的 class 文件，将新的 jar 包放进新的工程 libs 下 修改需要修改的代码，使其能够正确编译，编译之后拷贝生成对应的 class 文件，放进新的 jar 包中 PS: mac 下没有找到可以直接删除 jar 中的 class 文件的工具，在 windows 下可以直接用 winrar 打开，直接删除或者添加 class 文件。 PS: 如果反编译修改类似 Activity 这样涉及到资源文件的 class 文件，需要在原工程中新建包名去修改，如果在新的工程中修改，生成的资源 id 与在原工程中不一致，导致发生错误。]]></content>
     </entry>
 
     
