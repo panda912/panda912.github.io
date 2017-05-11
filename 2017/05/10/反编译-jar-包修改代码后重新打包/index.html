@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://www.panda912.com/2.png">
 <meta property="og:image" content="http://www.panda912.com/3.png">
 <meta property="og:image" content="http://www.panda912.com/4.png">
-<meta property="og:updated_time" content="2017-05-10T13:08:58.000Z">
+<meta property="og:updated_time" content="2017-05-11T08:44:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反编译 jar 包修改代码后重新打包">
 <meta name="twitter:description" content="定位要修改的类，新建一个工程，包名与 jar 包名一致，新建同名的类，将 class 中的代码拷贝进去，然后将 jar 包中要修改的类删除，将删除后的类的 jar 包添加到新的工程中，重新编译，将编译后的 class 文件拷贝到 jar 包中，over！
@@ -356,6 +356,7 @@
 <p><img src="4.png" alt=""></p>
 <p>PS: mac 下没有找到可以直接删除 jar 中的 class 文件的工具，在 windows 下可以直接用 winrar 打开，直接删除或者添加 class 文件。</p>
 <p>PS: 如果反编译修改类似 Activity 这样涉及到资源文件的 class 文件，需要在原工程中新建包名去修改，如果在新的工程中修改，生成的资源 id 与在原工程中不一致，导致发生错误。</p>
+<p>参考链接：<a href="http://blog.csdn.net/yy4040/article/details/6641688" target="_blank" rel="external">http://blog.csdn.net/yy4040/article/details/6641688</a></p>
 
       
     </div>
