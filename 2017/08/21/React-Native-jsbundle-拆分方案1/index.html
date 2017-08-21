@@ -110,9 +110,9 @@ jsbundle 太大, 一个简单的页面, 打包之后的 jsbundle 都600多K, 拆
 
 
  前面 !f">
-<meta property="og:image" content="http://www.panda912.com/Users/panda/Desktop/QQ20170821-212600@2x.png">
-<meta property="og:image" content="http://www.panda912.com/Users/panda/Desktop/QQ20170821-212624@2x.png">
-<meta property="og:updated_time" content="2017-08-21T14:16:25.000Z">
+<meta property="og:image" content="http://www.panda912.com/1.png">
+<meta property="og:image" content="http://www.panda912.com/2.png">
+<meta property="og:updated_time" content="2017-08-21T14:21:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native jsbundle 拆分方案1">
 <meta name="twitter:description" content="参考: 『携程是如何做 React Native 优化的』
@@ -126,7 +126,7 @@ jsbundle 太大, 一个简单的页面, 打包之后的 jsbundle 都600多K, 拆
 
 
  前面 !f">
-<meta name="twitter:image" content="http://www.panda912.com/Users/panda/Desktop/QQ20170821-212600@2x.png">
+<meta name="twitter:image" content="http://www.panda912.com/1.png">
 
 
 
@@ -372,8 +372,8 @@ jsbundle 太大, 一个简单的页面, 打包之后的 jsbundle 都600多K, 拆
 </ol>
 <p>####怎么拆分?</p>
 <p>既然要拆分 jsbundle, 那就看看 jsbundle 里都有啥:</p>
-<p><img src="/Users/panda/Desktop/QQ20170821-212600@2x.png" alt="QQ20170821-212600@2x"></p>
-<p><img src="/Users/panda/Desktop/QQ20170821-212624@2x.png" alt="QQ20170821-212624@2x"></p>
+<p><img src="1.png" alt=""></p>
+<p><img src="2.png" alt=""></p>
 <p> 前面 <code>!function</code> 开头的代码是各个依赖模块引用的部分, 中间的 <code>__d(function(...){...},XXX)</code> 部分是各个入口模块和业务模块定义部分, 后面的数字是各个模块对应的 <code>moduleId</code>, 最后的 <code>require(XX)</code> 是入口模块的注册部分. </p>
 <p>如果你再打另外一个模块的 jsbundle 与之对比, 会发现代码大致相同, 区别最大的就是最后一行 <code>require(XX)</code> 中那个moduleId 所对应的<code>__d(function(…){…},XXX)</code>, 就是入口模块的定义部分.</p>
 <p>所以我们新建一个 js 文件, 命名 <code>base.android.js</code>, 只导入这两个基础模块,</p>
