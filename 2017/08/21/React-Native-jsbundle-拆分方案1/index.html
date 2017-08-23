@@ -112,7 +112,7 @@ jsbundle 太大, 一个简单的页面, 打包之后的 jsbundle 都600多K, 拆
  前面 !f">
 <meta property="og:image" content="http://www.panda912.com/1.png">
 <meta property="og:image" content="http://www.panda912.com/2.png">
-<meta property="og:updated_time" content="2017-08-21T14:21:29.000Z">
+<meta property="og:updated_time" content="2017-08-23T03:09:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native jsbundle 拆分方案1">
 <meta name="twitter:description" content="参考: 『携程是如何做 React Native 优化的』
@@ -378,10 +378,10 @@ jsbundle 太大, 一个简单的页面, 打包之后的 jsbundle 都600多K, 拆
 <p>如果你再打另外一个模块的 jsbundle 与之对比, 会发现代码大致相同, 区别最大的就是最后一行 <code>require(XX)</code> 中那个moduleId 所对应的<code>__d(function(…){…},XXX)</code>, 就是入口模块的定义部分.</p>
 <p>所以我们新建一个 js 文件, 命名 <code>base.android.js</code>, 只导入这两个基础模块,</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import React from &apos;react&apos;;</div><div class="line">import &#123;&#125; from &apos;react-native&apos;;</div></pre></td></tr></table></figure>
-<p>这个 js 文件所打出来的 jsbundle 就是基础包了, 不包含任何业务代码. 我们把基础包命名为 <code>base.android.jsbundle</code>, 把业务包命名为 <code>biz.android.jsbundle</code>, 两个文件做差分, 生成的 diff 文件就是增量包了, 正常发包的时候把基础包集成进 apk, 如果业务包有更新, 只需要更新增量包, 然后做patch合并, 合并之后的文件就是完成的 jsbundle 文件了.</p>
+<p>这个 js 文件所打出来的 jsbundle 就是基础包了, 不包含任何业务代码. 我们把基础包命名为 <code>base.android.jsbundle</code>, 把业务包命名为 <code>biz.android.jsbundle</code>, 两个文件做差分, 生成的 diff 文件就是增量包了, 正常发包的时候把基础包集成进 apk, 如果业务包有更新, 只需要更新增量包, 然后做patch合并, 合并之后的文件就是完整的 jsbundle 文件了.</p>
 <p>可以使用 <a href="http://www.daemonology.net/bsdiff/" target="_blank" rel="external">bsdiff</a>, 或者 <a href="https://github.com/jdesbonnet/jbdiff" target="_blank" rel="external">jbdiff</a> 生成 diff 文件以及补丁的合并,  一个 C 版本, 一个 Java 版本的.</p>
 <p>如果要再减小包大小,就在压缩一下喽, 下载之后再解压缩, 然后合并文件.</p>
-<p>可是这并无法做预加载, 因为并不能直接加载基础包, 会报错.</p>
+<p>####可是这并无法做预加载, 因为并不能直接加载基础包, 会报错.</p>
 
       
     </div>
