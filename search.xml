@@ -3,6 +3,20 @@
   
     
     <entry>
+      <title><![CDATA[面试 上海银科投资控股有限公司]]></title>
+      <url>%2F2017%2F09%2F16%2F%E9%9D%A2%E8%AF%95-%E4%B8%8A%E6%B5%B7%E9%93%B6%E7%A7%91%E6%8A%95%E8%B5%84%E6%8E%A7%E8%82%A1%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%2F</url>
+      <content type="text"><![CDATA[笔试: 选择题 (一看就是网上荡的) 看代码写输出结果, 主要考 Java 基础(list拷贝, 继承, String 和 StringBuilder) MVC 原理, MVC 在 android 中的应用 requestLayout invalidate postInvalidate 的区别 Handler 原理, 子线程创建 Handler 需要注意什么? sleep 和 wait 的区别 一面: activity 四种启动模式; ABCD 四个页面分别对应 standard singleTop, singleTask, singleInstance四种启动模式, A-&gt;B-&gt;C-D, 分析 Task 栈, 再 D-&gt;A-&gt;B-&gt;C, 分析 Task 栈 fragment 生命周期; fragment 如何实现懒加载 有没有做过嵌套滚动的页面? 如何实现的? CoordinatorLayout 原理 MVP js 和 native 通信 4.2以下的 webview 漏洞, 怎么处理 (不准使用第三方) 目前项目中使用的 http协议 是哪个版本? http1.1 和 http1.0 有什么区别 介绍一下 RxJava 的特点 二面: 为什么会页面卡顿; 哪些因素会导致页面卡顿; 如何排查页面卡顿; 如何优化页面卡顿; 频繁 GC 会不会导致页面卡顿, 为什么 为什么会内存泄露; 泄露的是栈内存还是堆内存; 平时使用什么工具分析内存泄露, 原理是什么 Stack Overflow(栈溢出), 为什么栈会溢出 android 手机的堆内存有多大 如何优化布局文件 使用帧动画导致内存升高, 在使用帧动画的前提下如何优化内存; (PS: 压缩图片质量真的能够减少内存占用吗) 在屏幕左下角垂直绘制ABC3个文字; 绘制圆环 http status code 304 启动页广告图, 固定的图片链接, 客户端如何知道广告图片已经更新了 如何优化 app 启动速度; 多进程会不会影响 app 启动速度 多线程数据同步方式; 用过哪几种 锁(lock)有没有用过; lock 和 wait 的区别; 如何释放锁, 并通知其他线程当前可用 两个接口都请求成功之后才做下面的操作, 用 rxjava 怎么实现 有没有使用过 socket? 使用 socket 发送消息, 使用 Queue 管理消息队列(先进先出), 如果突然发送一个优先级高的消息, 如何优先处理这个优先级高的消息 平时遇到问题都是怎么解决的? 有没有 github 账号? 有没有成熟的开源项目? 如果遇到问题, 你会怎么处理(给你一天时间, 到中午了还没有解决) 如果跨部门沟通出现问题, 你会怎么做 如果突然出现某个问题, 不知道是终端还是前端还是后台的问题, 你会怎么做 如果老大临时把你调到其他项目组, 你会怎么做, 如果那边人员不配合你, 你会怎么做 如果老大让你调研一个新技术, 你会怎么做 三面:HR各种挖坑, 成功跳坑!]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[CoordinatorLayout+ViewPager+RecyclerView]]></title>
+      <url>%2F2017%2F09%2F13%2FCoordinatorLayout-ViewPager-RecyclerView%2F</url>
+      <content type="text"></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[React Native jsbundle 拆分方案1]]></title>
       <url>%2F2017%2F08%2F21%2FReact-Native-jsbundle-%E6%8B%86%E5%88%86%E6%96%B9%E6%A1%881%2F</url>
       <content type="text"><![CDATA[参考: 『携程是如何做 React Native 优化的』 ####为什么拆分? jsbundle 太大, 一个简单的页面, 打包之后的 jsbundle 都600多K, 拆分之后可以做热更新, 节省用户流量; 拆分基础包和业务包, 基础包可以做预加载,解决冷启动 RN 页面白屏问题; ####怎么拆分? 既然要拆分 jsbundle, 那就看看 jsbundle 里都有啥: 前面 !function 开头的代码是各个依赖模块引用的部分, 中间的 __d(function(...){...},XXX) 部分是各个入口模块和业务模块定义部分, 后面的数字是各个模块对应的 moduleId, 最后的 require(XX) 是入口模块的注册部分. 如果你再打另外一个模块的 jsbundle 与之对比, 会发现代码大致相同, 区别最大的就是最后一行 require(XX) 中那个moduleId 所对应的__d(function(…){…},XXX), 就是入口模块的定义部分. 所以我们新建一个 js 文件, 命名 base.android.js, 只导入这两个基础模块, 12import React from &apos;react&apos;;import &#123;&#125; from &apos;react-native&apos;; 这个 js 文件所打出来的 jsbundle 就是基础包了, 不包含任何业务代码. 我们把基础包命名为 base.android.jsbundle, 把业务包命名为 biz.android.jsbundle, 两个文件做差分, 生成的 diff 文件就是增量包了, 正常发包的时候把基础包集成进 apk, 如果业务包有更新, 只需要更新增量包, 然后做patch合并, 合并之后的文件就是完整的 jsbundle 文件了. 可以使用 bsdiff, 或者 jbdiff 生成 diff 文件以及补丁的合并, 一个 C 版本, 一个 Java 版本的. 如果要再减小包大小,就在压缩一下喽, 下载之后再解压缩, 然后合并文件. ####可是这并无法做预加载, 因为并不能直接加载基础包, 会报错.]]></content>
