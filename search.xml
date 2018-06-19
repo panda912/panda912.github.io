@@ -68,7 +68,7 @@
     <entry>
       <title><![CDATA[ubuntu 常用命令]]></title>
       <url>%2F2017%2F02%2F16%2Fubuntu-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
-      <content type="text"><![CDATA[1dpkg -l | grep -i &quot;keyword&quot; 1sudo apt remove --purge XXX 1sudo apt autoremove 1wget &quot;http://xxxxx.zip&quot; 1uname -a 1uname -r 1top 1pidof xxx 1pkill xxx 1killall xxx 1sudo fdisk -l 1sudo umount /dev/sdb 1sudo dd if=xxx.iso of=/dev/sdb 1sudo dd if=xxx.iso of=/dev/sdb bs=2M]]></content>
+      <content type="text"><![CDATA[1dpkg -l | grep -i &quot;keyword&quot; 1sudo apt remove --purge XXX 1sudo apt autoremove 1wget &quot;http://xxxxx.zip&quot; 1uname -a 1uname -r 1top 1pidof xxx 1pkill xxx 1killall xxx 1sudo fdisk -l 1sudo umount /dev/sdb 1sudo dd if=xxx.iso of=/dev/sdb 1sudo dd if=xxx.iso of=/dev/sdb bs=2M 查看文件绝对路径 1readlink -f file_path ssh 从 server 拷贝文件到 local 1scp -r username@ip_address:file_path dist_path]]></content>
     </entry>
 
     
