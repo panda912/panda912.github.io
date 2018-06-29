@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Ubuntu," />
 
 
 
@@ -84,15 +84,31 @@
 
 
 
-<meta name="description" content="这个帅哥很懒，只留下这段话。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="远方的海">
-<meta property="og:url" content="http://www.panda912.com/tags/gradle/index.html">
+<meta name="description" content="现象：
+解决：
+lsusb 列出 usb 设备列表，找到对应的终端设备，记下设备 ID；
+cd /etc/udev/rules.d/ 进入该目录，参照已有的文件命名格式，创建 .rules 后缀文件；
+输入 SUBSYSTEM==&amp;quot;usb&amp;quot;, ATTR{idVendor}==&amp;quot;19d2&amp;quot;, MODE=&amp;quot;0666&amp;quot;, GROUP=&amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 上 Android Studio 无法连接真机">
+<meta property="og:url" content="http://www.panda912.com/2018/06/29/Linux-上-Android-Studio-无法连接真机/index.html">
 <meta property="og:site_name" content="远方的海">
-<meta property="og:description" content="这个帅哥很懒，只留下这段话。">
+<meta property="og:description" content="现象：
+解决：
+lsusb 列出 usb 设备列表，找到对应的终端设备，记下设备 ID；
+cd /etc/udev/rules.d/ 进入该目录，参照已有的文件命名格式，创建 .rules 后缀文件；
+输入 SUBSYSTEM==&amp;quot;usb&amp;quot;, ATTR{idVendor}==&amp;quot;19d2&amp;quot;, MODE=&amp;quot;0666&amp;quot;, GROUP=&amp;quot">
+<meta property="og:image" content="http://www.panda912.com/as.jpeg">
+<meta property="og:image" content="http://www.panda912.com/shell.png">
+<meta property="og:updated_time" content="2018-06-29T14:50:35.199Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="远方的海">
-<meta name="twitter:description" content="这个帅哥很懒，只留下这段话。">
+<meta name="twitter:title" content="Linux 上 Android Studio 无法连接真机">
+<meta name="twitter:description" content="现象：
+解决：
+lsusb 列出 usb 设备列表，找到对应的终端设备，记下设备 ID；
+cd /etc/udev/rules.d/ 进入该目录，参照已有的文件命名格式，创建 .rules 后缀文件；
+输入 SUBSYSTEM==&amp;quot;usb&amp;quot;, ATTR{idVendor}==&amp;quot;19d2&amp;quot;, MODE=&amp;quot;0666&amp;quot;, GROUP=&amp;quot">
+<meta name="twitter:image" content="http://www.panda912.com/as.jpeg">
 
 
 
@@ -110,7 +126,7 @@
   };
 </script>
 
-  <title> 标签: gradle | 远方的海 </title>
+  <title> Linux 上 Android Studio 无法连接真机 | 远方的海 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -141,7 +157,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right  ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -262,102 +278,126 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        gradle
-        <small>标签</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/20/gradle使用exclude移除重复依赖/" itemprop="url">
-              
-                <span itemprop="name">gradle使用exclude移除重复依赖</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-20T17:15:54+08:00"
-              content="2016-09-20" >
-          09-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/20/gradle常用命令/" itemprop="url">
-              
-                <span itemprop="name">gradle常用命令</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-20T11:33:18+08:00"
-              content="2016-09-20" >
-          09-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/02/library中BuildConfig-DEBUG始终为false的解决方法/" itemprop="url">
-              
-                <span itemprop="name">library中BuildConfig.DEBUG始终为false的解决方法</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-02T10:27:39+08:00"
-              content="2016-09-02" >
-          09-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux 上 Android Studio 无法连接真机
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-29T21:49:13+08:00" content="2018-06-29">
+              2018-06-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="现象："><a href="#现象：" class="headerlink" title="现象："></a>现象：</h4><p><img src="as.jpeg" alt="as"></p>
+<h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><p><img src="shell.png" alt="shell"></p>
+<p><code>lsusb</code> 列出 usb 设备列表，找到对应的终端设备，记下设备 ID；</p>
+<p><code>cd /etc/udev/rules.d/</code> 进入该目录，参照已有的文件命名格式，创建 <code>.rules</code> 后缀文件；</p>
+<p>输入 <code>SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&quot;19d2&quot;, MODE=&quot;0666&quot;, GROUP=&quot;plugdev&quot;</code>, 其中 ‘19d2’ 就是该设备的 ID。</p>
+<p>保存 重启 👌</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ubuntu/" rel="tag">#Ubuntu</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/13/CoordinatorLayout-ViewPager-RecyclerView/" rel="next" title="CoordinatorLayout+ViewPager+RecyclerView">
+                <i class="fa fa-chevron-left"></i> CoordinatorLayout+ViewPager+RecyclerView
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -365,6 +405,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -384,8 +428,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -448,6 +501,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#现象："><span class="nav-number">1.</span> <span class="nav-text">现象：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决："><span class="nav-number">2.</span> <span class="nav-text">解决：</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -544,6 +608,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

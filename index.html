@@ -286,6 +286,109 @@
             
               
                 
+                <a class="post-title-link" href="/2018/06/29/Linux-上-Android-Studio-无法连接真机/" itemprop="url">
+                  Linux 上 Android Studio 无法连接真机
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-29T21:49:13+08:00" content="2018-06-29">
+              2018-06-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          现象：
+解决：
+lsusb 列出 usb 设备列表，找到对应的终端设备，记下设备 ID；
+cd /etc/udev/rules.d/ 进入该目录，参照已有的文件命名格式，创建 .rules 后缀文件；
+输入 SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&q
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/06/29/Linux-上-Android-Studio-无法连接真机/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/09/13/CoordinatorLayout-ViewPager-RecyclerView/" itemprop="url">
                   CoordinatorLayout+ViewPager+RecyclerView
                 </a>
@@ -1179,112 +1282,6 @@ https://github.com/pili-engineering/PLDroidPlayer
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/16/ubuntu-常用命令/" itemprop="url">
-                  ubuntu 常用命令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-16T22:52:38+08:00" content="2017-02-16">
-              2017-02-16
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1dpkg -l | grep -i &quot;keyword&quot;
-1sudo apt remove --purge XXX
-1sudo apt autoremove
-1wget &quot;http://xxxxx.zip&quot;
-1uname -a
-1uname -r
-1top
-1
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/16/ubuntu-常用命令/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1330,7 +1327,7 @@ https://github.com/pili-engineering/PLDroidPlayer
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[Linux 上 Android Studio 无法连接真机]]></title>
+      <url>%2F2018%2F06%2F29%2FLinux-%E4%B8%8A-Android-Studio-%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E7%9C%9F%E6%9C%BA%2F</url>
+      <content type="text"><![CDATA[现象： 解决： lsusb 列出 usb 设备列表，找到对应的终端设备，记下设备 ID； cd /etc/udev/rules.d/ 进入该目录，参照已有的文件命名格式，创建 .rules 后缀文件； 输入 SUBSYSTEM==&quot;usb&quot;, ATTR{idVendor}==&quot;19d2&quot;, MODE=&quot;0666&quot;, GROUP=&quot;plugdev&quot;, 其中 ‘19d2’ 就是该设备的 ID。 保存 重启 👌]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[CoordinatorLayout+ViewPager+RecyclerView]]></title>
       <url>%2F2017%2F09%2F13%2FCoordinatorLayout-ViewPager-RecyclerView%2F</url>
       <content type="text"></content>
