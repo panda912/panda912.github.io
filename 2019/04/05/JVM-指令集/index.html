@@ -1,0 +1,1960 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="字节码," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="指令码
+助记符
+描述
+
+
+
+
+0x00
+nop
+无操作
+
+
+0x01
+aconst_null
+null 进栈
+
+
+0x02
+iconst_m1
+int 型常量值 -1 进栈
+
+
+0x03
+iconst_0
+
+
+
+0x04
+iconst_1
+
+
+
+0x05
+iconst_2
+
+
+
+0x06
+iconst_3
+
+
+
+0x07
+iconst_4
+
+
+
+0x08
+iconst_5
+
+
+
+0x09
+l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM 指令集">
+<meta property="og:url" content="http://www.panda912.com/2019/04/05/JVM-指令集/index.html">
+<meta property="og:site_name" content="远方的海">
+<meta property="og:description" content="指令码
+助记符
+描述
+
+
+
+
+0x00
+nop
+无操作
+
+
+0x01
+aconst_null
+null 进栈
+
+
+0x02
+iconst_m1
+int 型常量值 -1 进栈
+
+
+0x03
+iconst_0
+
+
+
+0x04
+iconst_1
+
+
+
+0x05
+iconst_2
+
+
+
+0x06
+iconst_3
+
+
+
+0x07
+iconst_4
+
+
+
+0x08
+iconst_5
+
+
+
+0x09
+l">
+<meta property="og:updated_time" content="2019-08-07T13:58:06.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM 指令集">
+<meta name="twitter:description" content="指令码
+助记符
+描述
+
+
+
+
+0x00
+nop
+无操作
+
+
+0x01
+aconst_null
+null 进栈
+
+
+0x02
+iconst_m1
+int 型常量值 -1 进栈
+
+
+0x03
+iconst_0
+
+
+
+0x04
+iconst_1
+
+
+
+0x05
+iconst_2
+
+
+
+0x06
+iconst_3
+
+
+
+0x07
+iconst_4
+
+
+
+0x08
+iconst_5
+
+
+
+0x09
+l">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> JVM 指令集 | 远方的海 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6f364c1a2243fb709ce48537b3eeef0f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">远方的海</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JVM 指令集
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-04-05T08:22:21+08:00" content="2019-04-05">
+              2019-04-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <table>
+<thead>
+<tr>
+<th style="text-align:left">指令码</th>
+<th style="text-align:left">助记符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0x00</td>
+<td style="text-align:left">nop</td>
+<td style="text-align:left">无操作</td>
+</tr>
+<tr>
+<td style="text-align:left">0x01</td>
+<td style="text-align:left">aconst_null</td>
+<td style="text-align:left">null 进栈</td>
+</tr>
+<tr>
+<td style="text-align:left">0x02</td>
+<td style="text-align:left">iconst_m1</td>
+<td style="text-align:left">int 型常量值 -1 进栈</td>
+</tr>
+<tr>
+<td style="text-align:left">0x03</td>
+<td style="text-align:left">iconst_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x04</td>
+<td style="text-align:left">iconst_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x05</td>
+<td style="text-align:left">iconst_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x06</td>
+<td style="text-align:left">iconst_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x07</td>
+<td style="text-align:left">iconst_4</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x08</td>
+<td style="text-align:left">iconst_5</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x09</td>
+<td style="text-align:left">lconst_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x0A</td>
+<td style="text-align:left">lconst_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x0B</td>
+<td style="text-align:left">fconst_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x0C</td>
+<td style="text-align:left">fconst_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x0D</td>
+<td style="text-align:left">fconst_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x0E</td>
+<td style="text-align:left">dconst_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x0F</td>
+<td style="text-align:left">dconst_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x10</td>
+<td style="text-align:left">bipush</td>
+<td style="text-align:left">将一个 byte 型常量值(-128~127)推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x11</td>
+<td style="text-align:left">sipush</td>
+<td style="text-align:left">将一个 short 型常量值(-32768~32767)推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x12</td>
+<td style="text-align:left">ldc</td>
+<td style="text-align:left">将 int、float 或 String 型常量值从常量池中推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x13</td>
+<td style="text-align:left">ldc_w</td>
+<td style="text-align:left">将 int、float 或 String 型常量值从常量池中推送至栈顶(宽索引)</td>
+</tr>
+<tr>
+<td style="text-align:left">0x14</td>
+<td style="text-align:left">ldc2_w</td>
+<td style="text-align:left">将 long 或 double 型常量值从常量池中推送至栈顶(宽索引)</td>
+</tr>
+<tr>
+<td style="text-align:left">0x15</td>
+<td style="text-align:left">iload</td>
+<td style="text-align:left">将指定的 int 型本地变量推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x16</td>
+<td style="text-align:left">lload</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x17</td>
+<td style="text-align:left">fload</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x18</td>
+<td style="text-align:left">dload</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x19</td>
+<td style="text-align:left">aload</td>
+<td style="text-align:left">将指定的引用类型的本地变量推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x1A</td>
+<td style="text-align:left">iload_0</td>
+<td style="text-align:left">将第 0 个 int 型本地变量推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x1B</td>
+<td style="text-align:left">iload_1</td>
+<td style="text-align:left">将第 1 个 int 型本地变量推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x1C</td>
+<td style="text-align:left">iload_2</td>
+<td style="text-align:left">将第 2 个 int 型本地变量推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x1D</td>
+<td style="text-align:left">iload_3</td>
+<td style="text-align:left">将第 3 个 int 型本地变量推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x1E</td>
+<td style="text-align:left">lload_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x1F</td>
+<td style="text-align:left">lload_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x20</td>
+<td style="text-align:left">lload_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x21</td>
+<td style="text-align:left">lload_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x22</td>
+<td style="text-align:left">fload_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x23</td>
+<td style="text-align:left">fload_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x24</td>
+<td style="text-align:left">fload_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x25</td>
+<td style="text-align:left">fload_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x26</td>
+<td style="text-align:left">dload_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x27</td>
+<td style="text-align:left">dload_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x28</td>
+<td style="text-align:left">dload_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x29</td>
+<td style="text-align:left">dload_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x2A</td>
+<td style="text-align:left">aload_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x2B</td>
+<td style="text-align:left">aload_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x2C</td>
+<td style="text-align:left">aload_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x2D</td>
+<td style="text-align:left">aload_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x2E</td>
+<td style="text-align:left">iaload</td>
+<td style="text-align:left">将 int 型数组指定索引的值推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x2F</td>
+<td style="text-align:left">laload</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x30</td>
+<td style="text-align:left">faload</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x31</td>
+<td style="text-align:left">daload</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x32</td>
+<td style="text-align:left">aaload</td>
+<td style="text-align:left">将引用类型数组指定索引的值推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x33</td>
+<td style="text-align:left">baload</td>
+<td style="text-align:left">将 boolean 或 byte 型数组指定索引的值推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x34</td>
+<td style="text-align:left">caload</td>
+<td style="text-align:left">将 char 型数组指定索引的值推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x35</td>
+<td style="text-align:left">saload</td>
+<td style="text-align:left">将 short 型数组指定索引的值推送至栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x36</td>
+<td style="text-align:left">istore</td>
+<td style="text-align:left">将栈顶 int 型数值存入指定本地变量</td>
+</tr>
+<tr>
+<td style="text-align:left">0x37</td>
+<td style="text-align:left">lstore</td>
+<td style="text-align:left">将栈顶 long 型数值存入指定本地变量</td>
+</tr>
+<tr>
+<td style="text-align:left">0x38</td>
+<td style="text-align:left">fstore</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x39</td>
+<td style="text-align:left">dstore</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x3A</td>
+<td style="text-align:left">astore</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x3B</td>
+<td style="text-align:left">istore_0</td>
+<td style="text-align:left">将栈顶 int 型数值存入第 0 个本地变量</td>
+</tr>
+<tr>
+<td style="text-align:left">0x3C</td>
+<td style="text-align:left">istore_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x3D</td>
+<td style="text-align:left">istore_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x3E</td>
+<td style="text-align:left">istore_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x3F</td>
+<td style="text-align:left">lstore_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x40</td>
+<td style="text-align:left">lstore_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x41</td>
+<td style="text-align:left">lstore_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x42</td>
+<td style="text-align:left">lstore_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x43</td>
+<td style="text-align:left">fstore_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x44</td>
+<td style="text-align:left">fstore_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x45</td>
+<td style="text-align:left">fstore_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x46</td>
+<td style="text-align:left">fstore_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x47</td>
+<td style="text-align:left">dstore_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x48</td>
+<td style="text-align:left">dstore_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x49</td>
+<td style="text-align:left">dstore_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x4A</td>
+<td style="text-align:left">dstore_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x4B</td>
+<td style="text-align:left">astore_0</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x4C</td>
+<td style="text-align:left">astore_1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x4D</td>
+<td style="text-align:left">astore_2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x4E</td>
+<td style="text-align:left">astore_3</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x4F</td>
+<td style="text-align:left">iastore</td>
+<td style="text-align:left">将栈顶 int 型数值存入指定数组的指定索引位置</td>
+</tr>
+<tr>
+<td style="text-align:left">0x50</td>
+<td style="text-align:left">lastore</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x51</td>
+<td style="text-align:left">fastore</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x52</td>
+<td style="text-align:left">dastore</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x53</td>
+<td style="text-align:left">aastore</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x54</td>
+<td style="text-align:left">bastore</td>
+<td style="text-align:left">将栈顶 boolean 或 byte 型数值存入指定数组的指定索引位置</td>
+</tr>
+<tr>
+<td style="text-align:left">0x55</td>
+<td style="text-align:left">castore</td>
+<td style="text-align:left">将栈顶 char 型数值存入指定数组的指定索引位置</td>
+</tr>
+<tr>
+<td style="text-align:left">0x56</td>
+<td style="text-align:left">sastore</td>
+<td style="text-align:left">将栈顶 short 型数值存入指定数组的指定索引位置</td>
+</tr>
+<tr>
+<td style="text-align:left">0x57</td>
+<td style="text-align:left">pop</td>
+<td style="text-align:left">将栈顶数值弹出(数值不能是 long 或 double 类型)</td>
+</tr>
+<tr>
+<td style="text-align:left">0x58</td>
+<td style="text-align:left">pop2</td>
+<td style="text-align:left">将栈顶一个(long 或 double 类型)或两个(其它类型)数值弹出</td>
+</tr>
+<tr>
+<td style="text-align:left">0x59</td>
+<td style="text-align:left">dup</td>
+<td style="text-align:left">复制栈顶数值并将复制值压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x5A</td>
+<td style="text-align:left">dup_x1</td>
+<td style="text-align:left">复制栈顶数值并将复制值压入栈顶两次</td>
+</tr>
+<tr>
+<td style="text-align:left">0x5B</td>
+<td style="text-align:left">dup_x2</td>
+<td style="text-align:left">复制栈顶数值并将复制值压入栈顶两次或三次</td>
+</tr>
+<tr>
+<td style="text-align:left">0x5C</td>
+<td style="text-align:left">dup2</td>
+<td style="text-align:left">复制栈顶一个(long 或 double 类型)或两个(其它类型)数值并将复制值压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x5D</td>
+<td style="text-align:left">dup2_x1</td>
+<td style="text-align:left">&lt;待补充&gt;</td>
+</tr>
+<tr>
+<td style="text-align:left">0x5E</td>
+<td style="text-align:left">dup2_x2</td>
+<td style="text-align:left">&lt;待补充&gt;</td>
+</tr>
+<tr>
+<td style="text-align:left">0x5F</td>
+<td style="text-align:left">swap</td>
+<td style="text-align:left">将栈最的两个数值互换(数值不能是 long 或 double 类型)</td>
+</tr>
+<tr>
+<td style="text-align:left">0x60</td>
+<td style="text-align:left">iadd</td>
+<td style="text-align:left">将栈顶的两个 int 型数值相加并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x61</td>
+<td style="text-align:left">ladd</td>
+<td style="text-align:left">将栈顶的两个 long 型数值相加并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x62</td>
+<td style="text-align:left">fadd</td>
+<td style="text-align:left">将栈顶的两个 float 型数值相加并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x63</td>
+<td style="text-align:left">dadd</td>
+<td style="text-align:left">将栈顶的两个 double 型数值相加并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x64</td>
+<td style="text-align:left">isub</td>
+<td style="text-align:left">将栈顶的两个 int 型数值相减并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x65</td>
+<td style="text-align:left">lsub</td>
+<td style="text-align:left">将栈顶的两个 long 型数值相减并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x66</td>
+<td style="text-align:left">fsub</td>
+<td style="text-align:left">将栈顶的两个 float 型数值相减并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x67</td>
+<td style="text-align:left">dsub</td>
+<td style="text-align:left">将栈顶的两个 double 型数值相减并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x68</td>
+<td style="text-align:left">imul</td>
+<td style="text-align:left">将栈顶的两个 int 型数值相乘并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x69</td>
+<td style="text-align:left">lmul</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x6A</td>
+<td style="text-align:left">fmul</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x6B</td>
+<td style="text-align:left">dmul</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x6C</td>
+<td style="text-align:left">idiv</td>
+<td style="text-align:left">将栈顶的两个 int 型数值相除并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x6D</td>
+<td style="text-align:left">ldiv</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x6E</td>
+<td style="text-align:left">fdiv</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x6F</td>
+<td style="text-align:left">ddiv</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x70</td>
+<td style="text-align:left">irem</td>
+<td style="text-align:left">将栈顶的两个 int 型数值作取模运算并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x71</td>
+<td style="text-align:left">lrem</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x72</td>
+<td style="text-align:left">frem</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x73</td>
+<td style="text-align:left">drem</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x74</td>
+<td style="text-align:left">ineg</td>
+<td style="text-align:left">将栈顶 int 型数值取负并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x75</td>
+<td style="text-align:left">lneg</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x76</td>
+<td style="text-align:left">fneg</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x77</td>
+<td style="text-align:left">dneg</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0x78</td>
+<td style="text-align:left">ishl</td>
+<td style="text-align:left">将 int 型数值左移位指定位数并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x79</td>
+<td style="text-align:left">lshl</td>
+<td style="text-align:left">将 long 型数值左移位指定位数并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x7A</td>
+<td style="text-align:left">ishr</td>
+<td style="text-align:left">将 int 型数值右(符号)移位指定位数并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x7B</td>
+<td style="text-align:left">lshr</td>
+<td style="text-align:left">将 long 型数值右(符号)移位指定位数并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x7C</td>
+<td style="text-align:left">iushr</td>
+<td style="text-align:left">将 int 型数值右(无符号)移位指定位数并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x7D</td>
+<td style="text-align:left">lushr</td>
+<td style="text-align:left">将 long 型数值右(无符号)移位指定位数并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x7E</td>
+<td style="text-align:left">iand</td>
+<td style="text-align:left">将栈顶的两个 int 型数值作&lt;按位与&gt;并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x7F</td>
+<td style="text-align:left">land</td>
+<td style="text-align:left">将栈顶的两个 long 型数值作&lt;按位与&gt;并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x80</td>
+<td style="text-align:left">ior</td>
+<td style="text-align:left">将栈顶的两个 int 型数值作&lt;按位或&gt;并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x81</td>
+<td style="text-align:left">lor</td>
+<td style="text-align:left">将栈顶的两个 long 型数值作&lt;按位或&gt;并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x82</td>
+<td style="text-align:left">ixor</td>
+<td style="text-align:left">将栈顶的两个 int 型数值作&lt;按位异或&gt;并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x83</td>
+<td style="text-align:left">lxor</td>
+<td style="text-align:left">将栈顶的两个 long 型数值作&lt;按位异或&gt;并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x84</td>
+<td style="text-align:left">iinc</td>
+<td style="text-align:left">将指定 int 型变量增加指定值, 可以有两个变量, 分别表示 index 和 const, index 指第 index 个 int 型本地变量, const增加的值</td>
+</tr>
+<tr>
+<td style="text-align:left">0x85</td>
+<td style="text-align:left">i2l</td>
+<td style="text-align:left">将栈顶 int 型数值强制转换成 long 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x86</td>
+<td style="text-align:left">i2f</td>
+<td style="text-align:left">将栈顶 int 型数值强制转换成 float 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x87</td>
+<td style="text-align:left">i2d</td>
+<td style="text-align:left">将栈顶 int 型数值强制转换成 double 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x88</td>
+<td style="text-align:left">l2i</td>
+<td style="text-align:left">将栈顶 long 型数值强制转换成 int 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x89</td>
+<td style="text-align:left">l2f</td>
+<td style="text-align:left">将栈顶 long 型数值强制转换成 float 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x8A</td>
+<td style="text-align:left">l2d</td>
+<td style="text-align:left">将栈顶 long 型数值强制转换成 double 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x8B</td>
+<td style="text-align:left">f2i</td>
+<td style="text-align:left">将栈顶 float 型数值强制转换成 int 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x8C</td>
+<td style="text-align:left">f2l</td>
+<td style="text-align:left">将栈顶 float 型数值强制转换成 long 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x8D</td>
+<td style="text-align:left">f2d</td>
+<td style="text-align:left">将栈顶 float 型数值强制转换成 double 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x8E</td>
+<td style="text-align:left">d2i</td>
+<td style="text-align:left">将栈顶 double 型数值强制转换成 int 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x8F</td>
+<td style="text-align:left">d2l</td>
+<td style="text-align:left">将栈顶 double 型数值强制转换成 long 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×90</td>
+<td style="text-align:left">d2f</td>
+<td style="text-align:left">将栈顶 double 型数值强制转换成 float 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×91</td>
+<td style="text-align:left">i2b</td>
+<td style="text-align:left">将栈顶 int 型数值强制转换成 byte 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×92</td>
+<td style="text-align:left">i2c</td>
+<td style="text-align:left">将栈顶 int 型数值强制转换成 char 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×93</td>
+<td style="text-align:left">i2s</td>
+<td style="text-align:left">将栈顶 int 型数值强制转换成 short 型数值并将结果压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×94</td>
+<td style="text-align:left">lcmp</td>
+<td style="text-align:left">比较栈顶的两个 long 型数值大小, 并将结果 (1, 0, -1) 压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×95</td>
+<td style="text-align:left">fcmpl</td>
+<td style="text-align:left">比较栈顶的两个 float 型数值大小, 并将结果 (1, 0, -1) 压入栈顶, 当其中一个数值为 NaN 时, 将 -1 压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×96</td>
+<td style="text-align:left">fcmpg</td>
+<td style="text-align:left">比较栈顶的两个 float 型数值大小, 并将结果 (1, 0, -1) 压入栈顶, 当其中一个数值为 NaN 时, 将 1 压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×97</td>
+<td style="text-align:left">dcmpl</td>
+<td style="text-align:left">比较栈顶的两个 double 型数值大小, 并将结果 (1, 0, -1) 压入栈顶, 当其中一个数值为 NaN 时, 将 -1 压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0×98</td>
+<td style="text-align:left">dcmpg</td>
+<td style="text-align:left">比较栈顶的两个 double 型数值大小, 并将结果 (1, 0, -1) 压入栈顶, 当其中一个数值为 NaN 时, 将 1 压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0x99</td>
+<td style="text-align:left">ifeq</td>
+<td style="text-align:left">当栈顶 int 型数值等于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0x9A</td>
+<td style="text-align:left">ifne</td>
+<td style="text-align:left">当栈顶 int 型数值不等于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0x9B</td>
+<td style="text-align:left">iflt</td>
+<td style="text-align:left">当栈顶 int 型数值小于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0x9C</td>
+<td style="text-align:left">ifge</td>
+<td style="text-align:left">当栈顶 int 型数值大于等于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0x9D</td>
+<td style="text-align:left">ifgt</td>
+<td style="text-align:left">当栈顶 int 型数值大于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0x9E</td>
+<td style="text-align:left">ifle</td>
+<td style="text-align:left">当栈顶 int 型数值小于等于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0x9F</td>
+<td style="text-align:left">if_icmpeq</td>
+<td style="text-align:left">比较栈顶的两个 int 型数值大小, 当结果等于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA0</td>
+<td style="text-align:left">if_icmpne</td>
+<td style="text-align:left">比较栈顶的两个 int 型数值大小, 当结果不等于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA1</td>
+<td style="text-align:left">if_icmplt</td>
+<td style="text-align:left">比较栈顶的两个 int 型数值大小, 当结果小于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA2</td>
+<td style="text-align:left">if_icmpge</td>
+<td style="text-align:left">比较栈顶的两个 int 型数值大小, 当结果大于等于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA3</td>
+<td style="text-align:left">if_icmpgt</td>
+<td style="text-align:left">比较栈顶的两个 int 型数值大小, 当结果大于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA4</td>
+<td style="text-align:left">if_icmple</td>
+<td style="text-align:left">比较栈顶的两个 int 型数值大小, 当结果小于等于 0 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA5</td>
+<td style="text-align:left">if_acmpeq</td>
+<td style="text-align:left">比较栈顶的两个引用型数值, 当结果相等时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA6</td>
+<td style="text-align:left">if_acmpne</td>
+<td style="text-align:left">比较栈顶的两个引用型数值, 当结果不相等时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA7</td>
+<td style="text-align:left">goto</td>
+<td style="text-align:left">无条件跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA8</td>
+<td style="text-align:left">jsr</td>
+<td style="text-align:left">跳转至指定 16 位 offset 位置, 并将 jsr 下一条指令地址压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xA9</td>
+<td style="text-align:left">ret</td>
+<td style="text-align:left">返回至本地变量指定的 index 的指令位置 (一般与 jsr, jsr_w 联合使用)</td>
+</tr>
+<tr>
+<td style="text-align:left">0xAA</td>
+<td style="text-align:left">tableswitch</td>
+<td style="text-align:left">用于 switch 条件跳转, case 值连续 (可变长度指令)</td>
+</tr>
+<tr>
+<td style="text-align:left">0xAB</td>
+<td style="text-align:left">lookupswitch</td>
+<td style="text-align:left">用于 switch 条件跳转, case 值不连续 (可变长度指令)</td>
+</tr>
+<tr>
+<td style="text-align:left">0xAC</td>
+<td style="text-align:left">ireturn</td>
+<td style="text-align:left">从当前方法返回 int</td>
+</tr>
+<tr>
+<td style="text-align:left">0xAD</td>
+<td style="text-align:left">lreturn</td>
+<td style="text-align:left">从当前方法返回 long</td>
+</tr>
+<tr>
+<td style="text-align:left">0xAE</td>
+<td style="text-align:left">freturn</td>
+<td style="text-align:left">从当前方法返回 float</td>
+</tr>
+<tr>
+<td style="text-align:left">0xAF</td>
+<td style="text-align:left">dreturn</td>
+<td style="text-align:left">从当前方法返回 double</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB0</td>
+<td style="text-align:left">areturn</td>
+<td style="text-align:left">从当前方法返回对象引用</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB1</td>
+<td style="text-align:left">return</td>
+<td style="text-align:left">从当前方法返回 void</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB2</td>
+<td style="text-align:left">getstatic</td>
+<td style="text-align:left">获取指定类的静态域, 并将其值压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB3</td>
+<td style="text-align:left">putstatic</td>
+<td style="text-align:left">为指定的类的静态域赋值</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB4</td>
+<td style="text-align:left">getfield</td>
+<td style="text-align:left">获取指定类的实例域, 并将其值压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB5</td>
+<td style="text-align:left">putfield</td>
+<td style="text-align:left">为指定的类的实例域赋值</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB6</td>
+<td style="text-align:left">invokevirtual</td>
+<td style="text-align:left">调用实例方法</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB7</td>
+<td style="text-align:left">invokespecial</td>
+<td style="text-align:left">调用超类构造方法, 实例初始化方法, 私有方法</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB8</td>
+<td style="text-align:left">invokestatic</td>
+<td style="text-align:left">调用静态方法</td>
+</tr>
+<tr>
+<td style="text-align:left">0xB9</td>
+<td style="text-align:left">invokeinterface</td>
+<td style="text-align:left">调用接口方法</td>
+</tr>
+<tr>
+<td style="text-align:left">0xBA</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">因为历史原因, 该码点为未使用的保留码点</td>
+</tr>
+<tr>
+<td style="text-align:left">0xBB</td>
+<td style="text-align:left">new</td>
+<td style="text-align:left">创建一个对象, 并将其引用值压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xBC</td>
+<td style="text-align:left">newarray</td>
+<td style="text-align:left">创建一个指定原始类型 (如 int, float, char…) 的数组, 并将其引用值压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xBD</td>
+<td style="text-align:left">anewarray</td>
+<td style="text-align:left">创建一个引用型 (如 类, 接口, 数组) 的数组, 并将其引用值压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xBE</td>
+<td style="text-align:left">arraylength</td>
+<td style="text-align:left">获得数组的长度值并压入栈顶 (栈顶的数组引用 <arrayref> 出栈, 该数组的长度进栈. 如果 <arrayref> 的值为 null, 会抛出 NullPointerException)</arrayref></arrayref></td>
+</tr>
+<tr>
+<td style="text-align:left">0xBF</td>
+<td style="text-align:left">athrow</td>
+<td style="text-align:left">将栈顶的异常抛出</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC0</td>
+<td style="text-align:left">checkcast</td>
+<td style="text-align:left">检验类型转换, 检验未通过将抛出 ClassCastException</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC1</td>
+<td style="text-align:left">instanceof</td>
+<td style="text-align:left">检验对象是否是指定的类的实例, 如果是将 1 压入栈顶, 否则将 0 压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC2</td>
+<td style="text-align:left">monitorenter</td>
+<td style="text-align:left">获得对象的锁, 用于同步方法或同步块</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC3</td>
+<td style="text-align:left">monitorexit</td>
+<td style="text-align:left">释放对象的锁, 用于同步方法或同步块</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC4</td>
+<td style="text-align:left">wide</td>
+<td style="text-align:left">当本地变量的索引超过 255 时使用该指令扩展索引宽度</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC5</td>
+<td style="text-align:left">multianewarray</td>
+<td style="text-align:left">创建指定类型和维度的多维数组(执行该指令时, 栈中必须包含各维度的长度值), 并将其引用值压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC6</td>
+<td style="text-align:left">ifnull</td>
+<td style="text-align:left">为 null 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC7</td>
+<td style="text-align:left">ifnonnull</td>
+<td style="text-align:left">不为 null 时跳转</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC8</td>
+<td style="text-align:left">goto_w</td>
+<td style="text-align:left">无条件跳转 (宽索引)</td>
+</tr>
+<tr>
+<td style="text-align:left">0xC9</td>
+<td style="text-align:left">jsr_w</td>
+<td style="text-align:left">跳转至指定 32 位 offset 位置, 并将 jsr_w 下一条指令地址压入栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">0xCA</td>
+<td style="text-align:left">breakpoint</td>
+<td style="text-align:left">reserved for breakpoints in Java debuggers; should not appear in any class file</td>
+</tr>
+<tr>
+<td style="text-align:left">0xCB~0xFD</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">these values are currently unassigned for opcodes and are reserved for future use</td>
+</tr>
+<tr>
+<td style="text-align:left">0xFE</td>
+<td style="text-align:left">impdep1</td>
+<td style="text-align:left">reserved for implementation-dependent operations within debuggers; should not appear in any class file</td>
+</tr>
+<tr>
+<td style="text-align:left">0xFF</td>
+<td style="text-align:left">impdep2</td>
+<td style="text-align:left">reserved for implementation-dependent operations within debuggers; should not appear in any class file</td>
+</tr>
+</tbody>
+</table>
+<p>参考链接：</p>
+<ol>
+<li><a href="https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-6.html" target="_blank" rel="external">The Java Virtual Machine Instruction Set</a></li>
+<li><a href="https://blog.csdn.net/zhangpan19910604/article/details/52254053" target="_blank" rel="external">https://blog.csdn.net/zhangpan19910604/article/details/52254053</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/字节码/" rel="tag">#字节码</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/05/commiter-email-address-does-not-match-your-user-account/" rel="next" title="commiter email address does not match your user account">
+                <i class="fa fa-chevron-left"></i> commiter email address does not match your user account
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/05/Android-Gradle-Plugin-开发/" rel="prev" title="Android Gradle Plugin 开发">
+                Android Gradle Plugin 开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="panda" />
+          <p class="site-author-name" itemprop="name">panda</p>
+          <p class="site-description motion-element" itemprop="description">这个帅哥很懒，只留下这段话。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/panda912" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/yuafangdehai" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">panda</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

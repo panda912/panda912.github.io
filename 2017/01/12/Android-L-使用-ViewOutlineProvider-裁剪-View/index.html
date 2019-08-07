@@ -94,15 +94,15 @@ Sets the {@link ViewOutlineProvider} of the view, which generates the Outline th
 <meta property="og:description" content="Android 5.0的 View 类中新增了 setOutlineProvider(ViewOutlineProvider provider)  方法，注释如下：
 
 Sets the {@link ViewOutlineProvider} of the view, which generates the Outline that defines the shape of the shadow i">
-<meta property="og:image" content="https://ws4.sinaimg.cn/mw690/ad5b14bfgw1fbouzvhy1lj21091n676p.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/mw690/ad5b14bfgw1fbouzvk4bwj21091n6wgz.jpg">
-<meta property="og:updated_time" content="2017-01-13T04:33:26.000Z">
+<meta property="og:image" content="http://www.panda912.com/1.jpg">
+<meta property="og:image" content="http://www.panda912.com/2.jpg">
+<meta property="og:updated_time" content="2019-08-07T13:58:06.100Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android L 使用 ViewOutlineProvider 裁剪 View">
 <meta name="twitter:description" content="Android 5.0的 View 类中新增了 setOutlineProvider(ViewOutlineProvider provider)  方法，注释如下：
 
 Sets the {@link ViewOutlineProvider} of the view, which generates the Outline that defines the shape of the shadow i">
-<meta name="twitter:image" content="https://ws4.sinaimg.cn/mw690/ad5b14bfgw1fbouzvhy1lj21091n676p.jpg">
+<meta name="twitter:image" content="http://www.panda912.com/1.jpg">
 
 
 
@@ -345,11 +345,11 @@ Sets the {@link ViewOutlineProvider} of the view, which generates the Outline th
 </blockquote>
 <p>那么我们可以用它来把 <code>View</code> 裁剪成一些特定(圆形、矩形、圆角矩形)的形状：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">view.setOutlineProvider(<span class="keyword">new</span> ViewOutlineProvider() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getOutline</span><span class="params">(View view, Outline outline)</span> </span>&#123;</div><div class="line">        outline.setRoundRect(<span class="number">0</span>, <span class="number">0</span>, view.getWidth(), view.getHeight(), <span class="number">30</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">view.setClipToOutline(<span class="keyword">true</span>);</div></pre></td></tr></table></figure>
-<p><img src="https://ws4.sinaimg.cn/mw690/ad5b14bfgw1fbouzvhy1lj21091n676p.jpg" alt=""></p>
+<p><img src="1.jpg" alt=""></p>
 <p>也可以用来设置投影，但是投影的形状只能是凸多边形，为什么？看源码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Sets the Constructs an Outline from a</div><div class="line"> * &#123;<span class="doctag">@link</span> android.graphics.Path#isConvex() convex path&#125;.</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setConvexPath</span><span class="params">(@NonNull Path convexPath)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (convexPath.isEmpty()) &#123;</div><div class="line">        setEmpty();</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//如果不是凸多边形，会抛异常</span></div><div class="line">    <span class="keyword">if</span> (!convexPath.isConvex()) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"path must be convex"</span>);</div><div class="line">    &#125;</div><div class="line">    mMode = MODE_CONVEX_PATH;</div><div class="line">    mPath.set(convexPath);</div><div class="line">    mRect.setEmpty();</div><div class="line">    mRadius = RADIUS_UNDEFINED;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">view.setElevation(<span class="number">5</span>);</div><div class="line">view.setOutlineProvider(<span class="keyword">new</span> ViewOutlineProvider() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getOutline</span><span class="params">(View view, Outline outline)</span> </span>&#123;</div><div class="line">      	<span class="comment">//你可以用 Path 指定任何的形状，前提是凸多边形</span></div><div class="line">        <span class="comment">//这里设置投影的位置从右下角开始，投影形状是矩形</span></div><div class="line">        Path path = <span class="keyword">new</span> Path();</div><div class="line">        path.moveTo(view.getWidth(), view.getHeight());</div><div class="line">        path.lineTo(view.getWidth(), view.getHeight() * <span class="number">2</span>);</div><div class="line">        path.lineTo(view.getWidth() * <span class="number">2</span>, view.getHeight() * <span class="number">2</span>);</div><div class="line">        path.lineTo(view.getWidth() * <span class="number">2</span>, view.getHeight());</div><div class="line">        path.close();</div><div class="line">        outline.setConvexPath(path);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><img src="https://ws4.sinaimg.cn/mw690/ad5b14bfgw1fbouzvk4bwj21091n6wgz.jpg" alt=""></p>
+<p><img src="2.jpg" alt=""></p>
 
       
     </div>
@@ -458,7 +458,7 @@ Sets the {@link ViewOutlineProvider} of the view, which generates the Outline th
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -468,7 +468,7 @@ Sets the {@link ViewOutlineProvider} of the view, which generates the Outline th
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -536,7 +536,7 @@ Sets the {@link ViewOutlineProvider} of the view, which generates the Outline th
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
