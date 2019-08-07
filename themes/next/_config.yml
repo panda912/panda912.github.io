@@ -119,7 +119,7 @@ font:
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social:
   GitHub: https://github.com/panda912
-  Weibo: http://weibo.com/yuafangdehai
+  # Weibo: http://weibo.com/yuafangdehai
 
 
 # Social Links Icons
@@ -228,6 +228,14 @@ local_search:
 # ---------------------------------------------------------------
 # Third Party Services Settings
 # ---------------------------------------------------------------
+
+# Post wordcount display settings
+# Dependencies: https://github.com/willin/hexo-wordcount
+post_wordcount:
+  item_text: true
+  wordcount: true
+  min2read: true
+
 
 # MathJax Support
 mathjax:

@@ -32,7 +32,7 @@ view.setOutlineProvider(new ViewOutlineProvider() {
 view.setClipToOutline(true);
 ```
 
-![](https://ws4.sinaimg.cn/mw690/ad5b14bfgw1fbouzvhy1lj21091n676p.jpg)
+![](1.jpg)
 
 也可以用来设置投影，但是投影的形状只能是凸多边形，为什么？看源码：
 
@@ -75,4 +75,4 @@ view.setOutlineProvider(new ViewOutlineProvider() {
 });
 ```
 
-![](https://ws4.sinaimg.cn/mw690/ad5b14bfgw1fbouzvk4bwj21091n6wgz.jpg)
+![](2.jpg)
